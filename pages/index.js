@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import {
   Container,
   Grid,
@@ -9,6 +10,7 @@ import { Box } from "@mui/system";
 import Head from "next/head";
 import Image from "next/image";
 import FilledButton from "../components/FilledButton";
+import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import OutlineButton from "../components/OutlineButton";
 import TextButton from "../components/TextButton";
@@ -65,14 +67,15 @@ export default function Home() {
           <FilledButton text="My Work" handleClick={handleClickMyWork} />
 
           <TextButton text="Contact me" handleClick={handleClickContactMe} />
-          <hr
+          {/* <hr
             style={{
               marginTop: "3.8rem",
               alignItem: "centre",
               marginLeft: "2rem",
               marginRight: "2rem",
+              opacity: 0.2,
             }}
-          />
+          /> */}
         </Grid>
 
         <Grid
@@ -90,6 +93,7 @@ export default function Home() {
           </ImageList>
         </Grid>
       </Grid>
+      <Footer></Footer>
     </Container>
   );
 }
