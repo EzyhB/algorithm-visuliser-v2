@@ -15,7 +15,7 @@ import { ImageList, ImageListItem } from "@mui/material";
 import Image from "next/image";
 import ThemeSwitch from "../ThemeSwitch";
 
-const pages = ["Products", "Pricing", "Blog"];
+const pages = ["Home", "All Algorithms", "Blog", "Something"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const Navbar = () => {
@@ -100,16 +100,32 @@ const Navbar = () => {
               />
             </ImageListItem>
           </ImageList>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page}
-              </Button>
-            ))}{" "}
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: "none", md: "flex" },
+            }}
+          >
+            <Box
+              sx={{
+                flexGrow: 1,
+                display: { xs: "none", md: "flex" },
+                justifyContent: "space-between",
+
+                maxWidth: "70%",
+                marginLeft: "10%",
+              }}
+            >
+              {pages.map((page) => (
+                <Button
+                  key={page}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block" }}
+                >
+                  {page}
+                </Button>
+              ))}
+            </Box>
           </Box>
           {/* Auth stuff goes here! make login/Sign up buttons and avatar custom*/}
 

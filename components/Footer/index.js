@@ -40,10 +40,16 @@ export default function Footer() {
             sx={{ my: 2, display: "block" }}
             color="secondary"
           >
-            <InstagramIcon />
-            <GitHubIcon sx={{ marginLeft: "1rem" }} />
-            <LinkedInIcon sx={{ marginLeft: "1rem" }} />
-            <YouTubeIcon sx={{ marginLeft: "1rem", marginRight: "1rem" }} />
+            <InstagramIcon sx={{ cursor: "pointer" }} />
+            <GitHubIcon sx={{ marginLeft: "1rem", cursor: "pointer" }} />
+            <LinkedInIcon sx={{ marginLeft: "1rem", cursor: "pointer" }} />
+            <YouTubeIcon
+              sx={{
+                marginLeft: "1rem",
+                marginRight: "1rem",
+                cursor: "pointer",
+              }}
+            />
           </Typography>
         </Box>
       </Container>
