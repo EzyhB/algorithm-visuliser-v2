@@ -4,15 +4,12 @@ import {
   Grid,
   ImageList,
   ImageListItem,
-  Typography,
 } from "@mui/material";
 import Image from "next/image";
 import React from "react";
-import Footer from "../components/Footer";
+
 import Navbar from "../components/Navbar";
 import { v4 } from "uuid";
-import { Box } from "@mui/system";
-import FilledButton from "../components/FilledButton";
 
 const items = [
   {
@@ -67,8 +64,9 @@ export default function allalgorithms() {
                   <Image
                     src={item.imagePath}
                     alt={item.name}
-                    height="346.878px"
-                    width="308.52px"
+                    height="346px"
+                    width="308px"
+                    // layout="responsive"
                   />
                   {/* <FilledButton text="pika" /> */}
                 </ImageListItem>

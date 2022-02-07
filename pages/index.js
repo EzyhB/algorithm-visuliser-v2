@@ -7,14 +7,10 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import Head from "next/head";
-import Image from "next/image";
 import FilledButton from "../components/FilledButton";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
-import OutlineButton from "../components/OutlineButton";
 import TextButton from "../components/TextButton";
-import styles from "../styles/Home.module.css";
 
 export default function Home() {
   const handleClickMyWork = () => {
@@ -26,7 +22,7 @@ export default function Home() {
   };
 
   return (
-    <Container maxWidth="none">
+    <Container maxWidth="none" sx={{ minWidth: "xs" }}>
       <Navbar />
 
       <Box sx={{ m: { md: 9, sm: 6, xs: 5 } }} />
