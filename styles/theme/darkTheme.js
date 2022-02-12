@@ -18,12 +18,15 @@ const darkTheme = createTheme({
       dark: "#a74c3d",
       contrastText: "#fff",
     },
+    accent: {
+      main: "#B550F8",
+    },
     background: {
       default: "#28293E",
     },
     text: {
       primary: "#ffff",
-      secondary: "#28293E",
+      secondary: "#535364",
       disabled: "#ff3d00",
     },
   },
