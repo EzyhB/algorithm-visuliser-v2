@@ -6,10 +6,10 @@ import {
   ImageListItem,
 } from "@mui/material";
 import Image from "next/image";
-import React from "react";
 
 import Navbar from "../components/Navbar";
 import { v4 } from "uuid";
+import { useRouter } from "next/router";
 
 const items = [
   {
@@ -28,7 +28,20 @@ const items = [
   { name: "Algorithm", imagePath: "/images/rnd-algo3-img.png", id: v4() },
 ];
 
-export default function allalgorithms() {
+export default function Allalgorithms() {
+  const router = useRouter();
+
+  const handleImageClick = (id) => {
+    console.log("ehh im here");
+    switch (id) {
+      case "0":
+        return router.push("/linear-search");
+    }
+    switch (id) {
+      case "1":
+        return router.push("/binary-search");
+    }
+  };
   return (
     <Container maxWidth="none">
       <Navbar />
@@ -46,7 +59,7 @@ export default function allalgorithms() {
             // height: "75vh",
           }}
         >
-          {items.map((item) => (
+          {items.map((item, index) => (
             <Grid
               item
               lg={4}
@@ -58,7 +71,9 @@ export default function allalgorithms() {
                 sx={{
                   display: "flex",
                   justifyContent: "center",
+                  cursor: "pointer",
                 }}
+                onClick={() => handleImageClick(index.toString())}
               >
                 <ImageListItem rows="1">
                   <Image

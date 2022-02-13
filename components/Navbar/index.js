@@ -14,6 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { ImageList, ImageListItem } from "@mui/material";
 import Image from "next/image";
 import ThemeSwitch from "../ThemeSwitch";
+import { useRouter } from "next/router";
 
 const pages = ["Home", "All Algorithms", "Blog", "Something"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -21,6 +22,8 @@ const settings = ["Profile", "Account", "Dashboard", "Logout"];
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const router = useRouter();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -35,6 +38,19 @@ const Navbar = () => {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleMenuItemClick = (id) => {
+    switch (id) {
+      case "0":
+        return router.push("/");
+      case "1":
+        return router.push("/all-algorithms");
+      case "2":
+        return router.push("/blog");
+      case "3":
+        return router.push("/something");
+    }
   };
 
   return (
@@ -81,8 +97,13 @@ const Navbar = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+              {pages.map((page, index) => (
+                <MenuItem
+                  key={page}
+                  onClick={() => {
+                    handleMenuItemClick(index.toString());
+                  }}
+                >
                   <Typography textAlign="center" color="textSecondary">
                     {page}
                   </Typography>
@@ -116,10 +137,10 @@ const Navbar = () => {
                 marginLeft: "10%",
               }}
             >
-              {pages.map((page) => (
+              {pages.map((page, index) => (
                 <Button
                   key={page}
-                  onClick={handleCloseNavMenu}
+                  onClick={() => handleMenuItemClick(index.toString())}
                   sx={{ my: 2, color: "white", display: "block" }}
                 >
                   {page}

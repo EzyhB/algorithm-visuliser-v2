@@ -9,7 +9,7 @@ import AlgorithmInfoCard from "../AlgorithmInfoCard";
 
 const initialState = [...Array(24).keys()];
 const infoCardText =
-  "Binary search is a more effective searching algorithm, that repeatedly divides the array in half and assessing if the possible target is hiHigher or loLower than the mid point.";
+  "Binary search is a more effective searching algorithm, that repeatedly divides the array in half and assessing if the possible target is Higher or Lower than the mid point.";
 const infoCardText2 =
   "This algorithm has a time complexity of O(log n) in the worst case and O(1) in the best case.";
 
@@ -70,7 +70,7 @@ export default function BinarySearchAlgo() {
 
       binarySearchAnimations("mid", mid, time);
       console.log("something in while and time", time);
-      time += 1500;
+      time += 2000;
       if (array[mid] === searchingFor) {
         console.log("number bagged!");
 
@@ -89,7 +89,7 @@ export default function BinarySearchAlgo() {
 
         binarySearchAnimations("low", LowNum, time);
       }
-      time += 1500;
+      time += 2000;
     }
   };
 

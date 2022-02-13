@@ -7,18 +7,21 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
+import { useRouter } from "next/router";
 import FilledButton from "../components/FilledButton";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import TextButton from "../components/TextButton";
 
 export default function Home() {
+  const router = useRouter();
+
   const handleClickMyWork = () => {
-    console.log("this works");
+    router.push("/all-algorithms");
   };
 
   const handleClickContactMe = () => {
-    console.log("contact me");
+    router.push("/contact-me");
   };
 
   return (

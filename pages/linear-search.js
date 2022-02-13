@@ -30,7 +30,6 @@ export default function linearSearch() {
       <Container maxWidth="xl">
         <LinearSearchAlgo />
       </Container>
-      <Footer />
     </Container>
   );
 }
