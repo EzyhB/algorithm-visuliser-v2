@@ -77,7 +77,7 @@ export default function BinarySearchAlgo() {
         binarySearchAnimations("found", array[mid], time);
 
         HighNum = 0;
-        LowNum = 999;
+        LowNum = 99;
       } else if (array[mid] > searchingFor) {
         console.log("mid, hiHigh", mid, hiHigh);
         HighNum = mid - 1;

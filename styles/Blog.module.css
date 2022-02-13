@@ -1,0 +1,38 @@
+.heroBg {
+}
+
+@media only screen and (min-width: 0px) {
+  .heroBg {
+    background-image: url("/images/blog-bg-sm.png");
+    background-repeat: no-repeat;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .heroBg {
+    background-image: url("/images/blog-bg-sm.png");
+    background-repeat: no-repeat;
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .heroBg {
+    background-image: url("/images/blog-bg-md.png");
+    background-repeat: no-repeat;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .heroBg {
+    background-image: url("/images/blog-bg-lg.png");
+    background-repeat: no-repeat;
+    /* background-color: bisque; */
+  }
+}
+
+@media only screen and (min-width: 1536px) {
+  .heroBg {
+    background-image: url("/images/blog-bg-xl.png");
+    background-repeat: no-repeat;
+  }
+}
