@@ -19,6 +19,8 @@ export default function AlgorithmInfoCard({
   handleClickArray,
   handleClickPick,
   handleClickFind,
+  text1,
+  text2,
 }) {
   const [anchorElAlgo, setAnchorElAlgo] = useState(null);
 
@@ -119,14 +121,9 @@ export default function AlgorithmInfoCard({
         </Menu>
 
         <CardContent>
-          <Typography color="textSecondary">
-            Linear search is a simple algorithm that will iterate over each
-            element in an array one by one in order to find the value were
-            looking for.
-            <br />
-            This algorithm has a time complexity of O(n) in the worst case and
-            O(1) in the best case.
-          </Typography>
+          <Typography color="textSecondary">{text1}</Typography>
+          <br />
+          <Typography color="textSecondary">{text2}</Typography>
         </CardContent>
       </Card>
       <br />

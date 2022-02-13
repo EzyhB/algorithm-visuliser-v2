@@ -9,8 +9,12 @@ import AlgorithmInfoCard from "../AlgorithmInfoCard";
 // Math.floor(Math.random() * 99)
 
 const initialState = [...Array(24).keys()];
+const infoCardText =
+  "Linear search is a simple algorithm that will iterate over each element in an array one by one in order to find the value we're looking for.";
+const infoCardText2 =
+  "This algorithm has a time complexity of O(n) in the worst case and O(1) in the best case.";
 
-export default function AlgorithmArray() {
+export default function LinearSearchAlgo() {
   const [arraye, setArraye] = useState(initialState);
   const [colorPick, setColorPick] = useState(null);
   const [searchingFor, setSearchingFor] = useState(null);
@@ -47,7 +51,7 @@ export default function AlgorithmArray() {
   };
 
   const handleClickFind = () => {
-    const numberInBag = false;
+    let numberInBag = false;
     let newArr = [];
     let time = 1500;
     arraye.forEach((el) => {
@@ -99,7 +103,12 @@ export default function AlgorithmArray() {
           <Button onClick={handleClickPick}>Pick Number</Button>
           <Button onClick={handleClickFind}>Find Number</Button>
         </ButtonGroup>
-        <AlgorithmInfoCard searchingFor={searchingFor} mobile={false} />
+        <AlgorithmInfoCard
+          searchingFor={searchingFor}
+          mobile={false}
+          text1={infoCardText}
+          text2={infoCardText2}
+        />
       </Grid>
       <Grid
         item
@@ -120,6 +129,8 @@ export default function AlgorithmArray() {
           handleClickArray={handleClickArray}
           handleClickPick={handleClickPick}
           handleClickFind={handleClickFind}
+          text1={infoCardText}
+          text2={infoCardText2}
         />
       </Grid>
 

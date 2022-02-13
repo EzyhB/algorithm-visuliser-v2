@@ -1,5 +1,6 @@
 import { Container, Grid, Typography } from "@mui/material";
 import React from "react";
+import BinarySearchAlgo from "../components/BinarySearchAlgorithm";
 
 import Footer from "../components/Footer";
 import GenerateArrayButton from "../components/GenerateArrayButton";
@@ -25,10 +26,10 @@ export default function linearSearch() {
           },
         }}
       >
-        Linear Search
+        Binary Search
       </Typography>
       <Container maxWidth="xl">
-        <LinearSearchAlgo />
+        <BinarySearchAlgo />
       </Container>
       <Footer />
     </Container>
