@@ -22,7 +22,7 @@ export default function Blog() {
         "https://algorithm-visuliser-v2-backend.vercel.app/api/get_all_blogposts"
       );
       const data = await response.json();
-      console.log("data", data.rows);
+
       setBlogData(data.rows);
     }
     getAllBlogData();
