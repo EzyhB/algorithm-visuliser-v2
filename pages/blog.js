@@ -7,14 +7,27 @@ import {
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 
 import css from "../styles/Blog.module.css";
-import blogData from "../dummyBlogData";
+// import blogData from "../dummyBlogData";
 import BlogDisplayCards from "../components/BlogDisplayCards";
 
-export default function blog() {
+export default function Blog() {
+  const [blogData, setBlogData] = useState([]);
+  useEffect(() => {
+    async function getAllBlogData() {
+      const response = await fetch(
+        "http://localhost:3000/api/get_all_blogposts"
+      );
+      const data = await response.json();
+      console.log("data", data.rows);
+      setBlogData(data.rows);
+    }
+    getAllBlogData();
+  }, []);
+
   return (
     <Container maxWidth="none">
       <Navbar />
@@ -119,9 +132,9 @@ export default function blog() {
               }}
             >
               <BlogDisplayCards
-                blogTitle={el.title}
-                blogDate={el.date}
-                blogText={el.content}
+                blogTitle={el.blog_title}
+                blogDate={el.blog_date}
+                blogText={el.blog_content}
               />
             </Grid>
           ))}

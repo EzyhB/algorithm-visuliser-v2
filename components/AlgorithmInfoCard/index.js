@@ -41,6 +41,7 @@ export default function AlgorithmInfoCard({
   return (
     <div>
       <Card
+        raised
         sx={{
           color: "#28293E",
           maxWidth: { xl: "74.5%", lg: "92.5%" },

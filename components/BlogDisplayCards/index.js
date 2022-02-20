@@ -27,7 +27,7 @@ export default function BlogDisplayCards({
         }
         /*authenticated? */
         action={
-          <IconButton aria-lable="edit">
+          <IconButton>
             <MoreVertIcon />
           </IconButton>
         }
