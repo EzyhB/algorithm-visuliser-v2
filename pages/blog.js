@@ -19,7 +19,7 @@ export default function Blog() {
   useEffect(() => {
     async function getAllBlogData() {
       const response = await fetch(
-        "http://localhost:3000/api/get_all_blogposts"
+        "https://algorithm-visuliser-v2-backend.vercel.app/api/get_all_blogposts"
       );
       const data = await response.json();
       console.log("data", data.rows);
