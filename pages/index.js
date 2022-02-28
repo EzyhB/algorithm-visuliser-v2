@@ -85,14 +85,15 @@ export default function Home() {
             justifyContent: "center",
           }}
         >
-          <ImageList cols={1}>
-            <ImageListItem>
-              <img src="/images/homepage1.png" alt="1st image" />
-            </ImageListItem>
-          </ImageList>
+          <ImageListItem>
+            <img
+              src="/images/homepage1.png"
+              alt="1st image"
+              style={{ width: "100%", height: "auto" }}
+            />
+          </ImageListItem>
         </Grid>
       </Grid>
-      <Footer></Footer>
     </Container>
   );
 }

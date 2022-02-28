@@ -66,12 +66,12 @@ export default function Blog() {
             </Typography>
             <Button color="secondary">Make a post</Button>
           </Grid>
-          <Grid item xl={6} sm={2} xs={0}></Grid>
+          <Grid item xl={6} sm={2}></Grid>
         </Grid>
         <Box sx={{ m: { md: 0, sm: 6, xs: 5 } }}></Box>
         <Grid container>
-          <Grid item xl={8} lg={7} md={6} sm={3} xs={2}></Grid>
-          <Grid item md={3} sm={4} xs={6}>
+          <Grid item xl={8} lg={7} md={6} sm={3}></Grid>
+          <Grid item md={3} sm={4}>
             <ImageList
               sx={{
                 width: {
@@ -79,7 +79,7 @@ export default function Blog() {
                   lg: "523.8px",
                   md: "465.6px",
                   sm: "407.4px",
-                  xs: "380.2px",
+                  xs: "100%",
                 },
                 display: "flex",
                 justifyContent: "end",

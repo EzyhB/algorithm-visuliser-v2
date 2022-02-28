@@ -75,12 +75,26 @@
 
 @media only screen and (min-width: 0px) {
   .array {
-    font-size: 1.9em;
+    font-size: 1.5em;
   }
   .arrayItem {
-    padding: 0.6em;
+    padding: 0.4em;
   }
   .arrayBG {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url("/images/algorithm-background-xs.png");
+  }
+}
+@media only screen and (min-width: 500px) {
+  .array {
+    font-size: 1.8em;
+  }
+  .arrayItem {
+    padding: 0.5em;
+  }
+  .arrayBG {
+    background-repeat: no-repeat;
     background-image: url("/images/algorithm-background-xs.png");
   }
 }

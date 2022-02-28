@@ -21,7 +21,7 @@ export default function linearSearch() {
             lg: "5rem",
             md: "5rem",
             sm: "4rem",
-            xs: "4rem",
+            xs: "3rem",
           },
         }}
       >
