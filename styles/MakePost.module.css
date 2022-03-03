@@ -1,0 +1,6 @@
+.postForm {
+  background: url("/images/makePostbgsm.png");
+  background: rgba(181, 80, 248, 0.15);
+  padding: 3rem;
+  border-radius: 3rem;
+}
