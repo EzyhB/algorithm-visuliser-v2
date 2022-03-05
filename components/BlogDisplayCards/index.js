@@ -13,6 +13,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import { useUser } from "@auth0/nextjs-auth0";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import { Box } from "@mui/system";
 
 export default function BlogDisplayCards({
   image,
@@ -28,7 +29,7 @@ export default function BlogDisplayCards({
   }
   const authorised = user_auth === user.sub;
   return (
-    <Card sx={{ maxWidth: "350px" }}>
+    <Card sx={{ maxWidth: "25rem" }}>
       <CardHeader
         sx={{ color: "#28293E" }}
         avatar={<Avatar src={image} title={blogAuthor} />}
@@ -43,19 +44,21 @@ export default function BlogDisplayCards({
           {blogText}
         </Typography>
       </CardContent>
-      <CardActions>
-        <IconButton aria-label="add to favorites" title="coming soon">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share" title="coming soon">
-          <ShareIcon />
-        </IconButton>
-        {authorised && (
-          <IconButton title="coming soon">
-            <DeleteForeverIcon color="error" />
+      <Box>
+        <CardActions>
+          <IconButton aria-label="add to favorites" title="coming soon">
+            <FavoriteIcon />
           </IconButton>
-        )}
-      </CardActions>
+          <IconButton aria-label="share" title="coming soon">
+            <ShareIcon />
+          </IconButton>
+          {authorised && (
+            <IconButton title="coming soon">
+              <DeleteForeverIcon color="error" />
+            </IconButton>
+          )}
+        </CardActions>
+      </Box>
     </Card>
   );
 }
