@@ -1,27 +1,45 @@
-import { Button, Container, Grid, TextField } from "@mui/material";
+import {
+  Button,
+  Container,
+  Grid,
+  TextField,
+  Typography,
+  Box,
+} from "@mui/material";
+import { withPageAuthRequired, useUser } from "@auth0/nextjs-auth0";
 import React from "react";
 
 import css from "../../styles/MakePost.module.css";
 
-const handleSubmit = (e) => {
-  e.preventDefault();
-  const newBlogPost = {
-    blog_author: "Ezyh B",
-    blog_title: e.target[0].value,
-    blog_content: e.target[2].value,
+export default withPageAuthRequired(function MakePost() {
+  const { user, isLoading } = useUser();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newBlogPost = {
+      blog_image: user.picture,
+      blog_author: user.name,
+      blog_title: e.target[0].value,
+      blog_content: e.target[2].value,
+      user_auth: user.sub,
+    };
+
+    fetch("https://algorithm-visuliser-v2-backend.vercel.app/api/new-post", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newBlogPost),
+    });
+    console.log(newBlogPost);
   };
-
-  fetch("https://algorithm-visuliser-v2-backend.vercel.app/api/new-post", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(newBlogPost),
-  });
-  console.log(newBlogPost);
-};
-
-export default function MakePost() {
+  if (isLoading) {
+    return <div>loading...</div>;
+  }
   return (
     <Container maxWidth="sm">
+      <Box sx={{ m: { md: 10, sm: 6, xs: 5 } }} />
+      <Typography align="center" variant="h3" paragraph>
+        New Post
+      </Typography>
       <form
         className={css.postForm}
         onSubmit={(e) => {
@@ -59,4 +77,4 @@ export default function MakePost() {
       </form>
     </Container>
   );
-}
+});
