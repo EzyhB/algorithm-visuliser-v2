@@ -21,6 +21,7 @@ export default withPageAuthRequired(function MakePost() {
       blog_author: user.name,
       blog_title: e.target[0].value,
       blog_content: e.target[2].value,
+      user_auth: user.sub,
     };
 
     fetch("https://algorithm-visuliser-v2-backend.vercel.app/api/new-post", {

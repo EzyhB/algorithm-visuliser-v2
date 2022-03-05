@@ -138,6 +138,7 @@ export default function Blog() {
                 blogTitle={el.blog_title}
                 blogAuthor={el.blog_author}
                 blogText={el.blog_content}
+                user_auth={el.user_auth}
               />
             </Grid>
           ))}
