@@ -15,14 +15,17 @@ import { ImageList, ImageListItem } from "@mui/material";
 import Image from "next/image";
 import ThemeSwitch from "../ThemeSwitch";
 import { useRouter } from "next/router";
+import { useUser } from "@auth0/nextjs-auth0";
 
 const pages = ["Home", "All Algorithms", "Blog", "Something"];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = ["Profile"];
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const { user, isLoading } = useUser();
 
+  console.log(user ? user.name : "yeah");
   const router = useRouter();
 
   const handleOpenNavMenu = (event) => {
@@ -52,6 +55,7 @@ const Navbar = () => {
         return router.push("/something");
     }
   };
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <AppBar position="static" color="transparent" sx={{ boxShadow: "none" }}>
@@ -149,52 +153,72 @@ const Navbar = () => {
             </Box>
           </Box>
           {/* Auth stuff goes here! make login/Sign up buttons and avatar custom*/}
-
-          <Typography
-            variant="subtitle2"
-            sx={{
-              marginTop: "20px",
-              marginRight: "10px",
-              display: { md: "block", xs: "none" },
-            }}
-          >
-            Ezyh B
-          </Typography>
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar
-                  alt="Remy Sharp"
-                  src="https://cdn.discordapp.com/attachments/786789210782171186/939593099229925386/Ezyh_B_Logo.jpg"
-                />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center" color="textSecondary">
-                    {setting}
-                  </Typography>
+          {user ? (
+            <Box sx={{ flexGrow: 0, display: "flex" }}>
+              <Typography
+                variant="subtitle2"
+                sx={{
+                  marginTop: "20px",
+                  marginRight: "10px",
+                  display: { md: "block", xs: "none" },
+                }}
+              >
+                {user.name}
+              </Typography>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src={user.picture} />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                    <Button>{setting}</Button>
+                  </MenuItem>
+                ))}
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Button href="/api/auth/logout" color="primary">
+                    Logout
+                  </Button>
                 </MenuItem>
-              ))}
-              <ThemeSwitch />
-            </Menu>
-          </Box>
+                <ThemeSwitch />
+              </Menu>
+            </Box>
+          ) : (
+            <Box sx={{ flexGrow: 0, display: { md: "block", xs: "none" } }}>
+              <Button
+                variant="outlined"
+                href="/api/auth/login"
+                color="secondary"
+                sx={{ width: "6rem", margin: "0 0.5rem" }}
+              >
+                Sign up
+              </Button>
+              <Button
+                variant="contained"
+                href="/api/auth/login"
+                color="secondary"
+                sx={{ width: "6rem" }}
+              >
+                Login
+              </Button>
+            </Box>
+          )}
         </Toolbar>
       </Container>
     </AppBar>
