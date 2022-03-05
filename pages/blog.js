@@ -64,7 +64,9 @@ export default function Blog() {
               Make sure you read all of the Lorem Ipsum on <br /> this page!
               Theres gna be a test on it later...
             </Typography>
-            <Button color="secondary">Make a post</Button>
+            <Button color="secondary" href="/new-post">
+              Make a post
+            </Button>
           </Grid>
           <Grid item xl={6} sm={2}></Grid>
         </Grid>
@@ -132,8 +134,9 @@ export default function Blog() {
               }}
             >
               <BlogDisplayCards
+                image={el.blog_image}
                 blogTitle={el.blog_title}
-                blogDate={el.blog_date}
+                blogAuthor={el.blog_author}
                 blogText={el.blog_content}
               />
             </Grid>

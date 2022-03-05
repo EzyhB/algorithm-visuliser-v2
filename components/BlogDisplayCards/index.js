@@ -15,24 +15,22 @@ import ShareIcon from "@mui/icons-material/Share";
 export default function BlogDisplayCards({
   image,
   blogTitle,
-  blogDate,
+  blogAuthor,
   blogText,
 }) {
   return (
     <Card sx={{ maxWidth: "350px" }}>
       <CardHeader
         sx={{ color: "#28293E" }}
-        avatar={
-          <Avatar sx={{ backgroundImage: `url(` + { image } + `)` }}>E</Avatar>
-        }
+        avatar={<Avatar src={image} />}
         /*authenticated? */
         action={
           <IconButton>
             <MoreVertIcon />
           </IconButton>
         }
-        title={blogTitle}
-        subheader={blogDate}
+        title={blogAuthor}
+        subheader={blogTitle}
       />
       <CardContent>
         <Typography variant="body2" color="text.secondary">

@@ -27,7 +27,6 @@ const Navbar = () => {
   const [anchorElLogin, setAnchorElLogin] = React.useState(null);
   const { user, isLoading } = useUser();
 
-  console.log(user ? user.name : "yeah");
   const router = useRouter();
 
   const handleOpenNavMenu = (event) => {
@@ -66,7 +65,7 @@ const Navbar = () => {
     }
   };
   if (isLoading) return <div>Loading...</div>;
-
+  console.log(user ? user : "yeah");
   return (
     <AppBar position="static" color="transparent" sx={{ boxShadow: "none" }}>
       <Container sx={{ maxWidth: { xl: "xl", lg: "lg", md: "md" } }}>
