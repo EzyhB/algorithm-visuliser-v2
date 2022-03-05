@@ -16,13 +16,15 @@ import Image from "next/image";
 import ThemeSwitch from "../ThemeSwitch";
 import { useRouter } from "next/router";
 import { useUser } from "@auth0/nextjs-auth0";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
-const pages = ["Home", "All Algorithms", "Blog", "Something"];
+const pages = ["Home", "Algorithms", "Blog", "Something"];
 const settings = ["Profile"];
 
 const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElLogin, setAnchorElLogin] = React.useState(null);
   const { user, isLoading } = useUser();
 
   console.log(user ? user.name : "yeah");
@@ -35,12 +37,20 @@ const Navbar = () => {
     setAnchorElUser(event.currentTarget);
   };
 
+  const handleOpenLoginMenu = (event) => {
+    setAnchorElLogin(event.currentTarget);
+  };
+
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const handleCloseLoginMenu = () => {
+    setAnchorElLogin(null);
   };
 
   const handleMenuItemClick = (id) => {
@@ -186,6 +196,13 @@ const Navbar = () => {
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
+                <Typography
+                  sx={{ display: { md: "none", xs: "block" } }}
+                  color="primary"
+                  align="center"
+                >
+                  {user.name}
+                </Typography>
                 {settings.map((setting) => (
                   <MenuItem key={setting} onClick={handleCloseUserMenu}>
                     <Button>{setting}</Button>
@@ -200,23 +217,51 @@ const Navbar = () => {
               </Menu>
             </Box>
           ) : (
-            <Box sx={{ flexGrow: 0, display: { md: "block", xs: "none" } }}>
-              <Button
-                variant="outlined"
-                href="/api/auth/login"
-                color="secondary"
-                sx={{ width: "6rem", margin: "0 0.5rem" }}
-              >
-                Sign up
-              </Button>
-              <Button
-                variant="contained"
-                href="/api/auth/login"
-                color="secondary"
-                sx={{ width: "6rem" }}
-              >
-                Login
-              </Button>
+            <Box>
+              <Box sx={{ flexGrow: 0, display: { md: "block", xs: "none" } }}>
+                <Button
+                  variant="outlined"
+                  href="/api/auth/login"
+                  color="secondary"
+                  sx={{ width: "6rem", margin: "0 0.5rem" }}
+                >
+                  Sign up
+                </Button>
+                <Button
+                  variant="contained"
+                  href="/api/auth/login"
+                  color="secondary"
+                  sx={{ width: "6rem" }}
+                >
+                  Login
+                </Button>
+              </Box>
+              <Box sx={{ flexGrow: 0, display: { md: "none", xs: "block" } }}>
+                <IconButton onClick={handleOpenLoginMenu}>
+                  <AccountCircleIcon fontSize="large" sx={{ color: "white" }} />
+                </IconButton>
+                <Menu
+                  sx={{ mt: "45px" }}
+                  anchorEl={anchorElLogin}
+                  open={Boolean(anchorElLogin)}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  onClose={handleCloseLoginMenu}
+                >
+                  <MenuItem>
+                    <Button href="/api/auth/login">Sign up</Button>
+                  </MenuItem>
+                  <MenuItem>
+                    <Button href="/api/auth/login">Login</Button>
+                  </MenuItem>
+                </Menu>
+              </Box>
             </Box>
           )}
         </Toolbar>
