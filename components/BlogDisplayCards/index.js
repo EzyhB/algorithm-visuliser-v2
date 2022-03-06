@@ -40,8 +40,8 @@ export default function BlogDisplayCards({
   if (isLoading) {
     return <div>loading...</div>;
   }
-  // const authorised = user_auth === user.sub;
-  const authorised = true;
+  const authorised = user_auth === user.sub;
+
   return isEditing ? (
     <EditingPost
       postId={id}
