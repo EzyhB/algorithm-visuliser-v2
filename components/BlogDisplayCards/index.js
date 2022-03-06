@@ -6,6 +6,7 @@ import {
   CardHeader,
   IconButton,
   Typography,
+  Box,
 } from "@mui/material";
 import React from "react";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
@@ -13,7 +14,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import { useUser } from "@auth0/nextjs-auth0";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import { Box } from "@mui/system";
+import EditIcon from "@mui/icons-material/Edit";
 
 export default function BlogDisplayCards({
   image,
@@ -21,13 +22,27 @@ export default function BlogDisplayCards({
   blogAuthor,
   blogText,
   user_auth,
+  id,
 }) {
   const { user, isLoading } = useUser();
+
+  const handleDelete = async () => {
+    await fetch(
+      "https://algorithm-visuliser-v2-backend.vercel.app/api/delete-post/" + id,
+      { method: "DELETE" }
+    );
+
+    document.location.reload(true);
+  };
+  const handleEdit = () => {
+    console.log("edited");
+  };
 
   if (isLoading) {
     return <div>loading...</div>;
   }
-  const authorised = user_auth === user.sub;
+  // const authorised = user_auth === user.sub;
+  const authorised = true;
   return (
     <Card sx={{ maxWidth: "25rem" }}>
       <CardHeader
@@ -53,9 +68,20 @@ export default function BlogDisplayCards({
             <ShareIcon />
           </IconButton>
           {authorised && (
-            <IconButton title="coming soon">
-              <DeleteForeverIcon color="error" />
-            </IconButton>
+            <Box
+              sx={{
+                display: "flex",
+                flexGrow: 1,
+                justifyContent: "flex-end",
+              }}
+            >
+              <IconButton title="coming soon" onClick={handleDelete}>
+                <DeleteForeverIcon color="error" />
+              </IconButton>
+              <IconButton title="coming soon">
+                <EditIcon color="secondary" />
+              </IconButton>
+            </Box>
           )}
         </CardActions>
       </Box>
