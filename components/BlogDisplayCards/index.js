@@ -6,14 +6,16 @@ import {
   CardHeader,
   IconButton,
   Typography,
+  Box,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import { useUser } from "@auth0/nextjs-auth0";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import { Box } from "@mui/system";
+import EditIcon from "@mui/icons-material/Edit";
+import EditingPost from "../EditingPost";
 
 export default function BlogDisplayCards({
   image,
@@ -21,14 +23,34 @@ export default function BlogDisplayCards({
   blogAuthor,
   blogText,
   user_auth,
+  id,
 }) {
   const { user, isLoading } = useUser();
+  const [isEditing, setIsEditing] = useState(false);
+
+  const handleDelete = async () => {
+    await fetch(
+      "https://algorithm-visuliser-v2-backend.vercel.app/api/delete-post/" + id,
+      { method: "DELETE" }
+    );
+
+    document.location.reload(true);
+  };
 
   if (isLoading) {
     return <div>loading...</div>;
   }
   const authorised = user_auth === user.sub;
-  return (
+
+  return isEditing ? (
+    <EditingPost
+      postId={id}
+      setIsEditing={setIsEditing}
+      isEditing={isEditing}
+      title={blogTitle}
+      text={blogText}
+    />
+  ) : (
     <Card sx={{ maxWidth: "25rem" }}>
       <CardHeader
         sx={{ color: "#28293E" }}
@@ -53,9 +75,23 @@ export default function BlogDisplayCards({
             <ShareIcon />
           </IconButton>
           {authorised && (
-            <IconButton title="coming soon">
-              <DeleteForeverIcon color="error" />
-            </IconButton>
+            <Box
+              sx={{
+                display: "flex",
+                flexGrow: 1,
+                justifyContent: "flex-end",
+              }}
+            >
+              <IconButton title="coming soon" onClick={handleDelete}>
+                <DeleteForeverIcon color="error" />
+              </IconButton>
+              <IconButton
+                title="coming soon"
+                onClick={() => setIsEditing(!isEditing)}
+              >
+                <EditIcon color="secondary" />
+              </IconButton>
+            </Box>
           )}
         </CardActions>
       </Box>

@@ -134,6 +134,7 @@ export default function Blog() {
               }}
             >
               <BlogDisplayCards
+                id={el.id}
                 image={el.blog_image}
                 blogTitle={el.blog_title}
                 blogAuthor={el.blog_author}
