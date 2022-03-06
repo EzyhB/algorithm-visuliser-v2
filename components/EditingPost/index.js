@@ -8,10 +8,27 @@ export default function EditingPost({
   title,
   text,
 }) {
-  const handleEdit = (e) => {
+  const handleEdit = async (e) => {
     e.preventDefault();
-    console.log("edited");
+    const editedPost = {
+      blog_title: e.target[0].value,
+      blog_content: e.target[3].value,
+    };
+
+    await fetch(
+      "https://algorithm-visuliser-v2-backend.vercel.app/api/edit-post/" +
+        postId,
+      {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(editedPost),
+      }
+    );
+
     setIsEditing(!isEditing);
+    setTimeout(() => {
+      document.location.reload(true);
+    }, 1000);
   };
   return (
     <Container
@@ -32,7 +49,7 @@ export default function EditingPost({
           fullWidth
           multiline
           placeholder="Title..."
-          value={title}
+          defaultValue={title}
           sx={{ textArea: { color: "#28293E" } }}
         />
         <TextField
@@ -40,7 +57,7 @@ export default function EditingPost({
           multiline
           rows={5}
           placeholder="Blog content..."
-          value={text}
+          defaultValue={text}
           sx={{ textArea: { color: "#28293E" } }}
         />
         <Grid container sx={{ margin: "0.5rem 0" }}>
