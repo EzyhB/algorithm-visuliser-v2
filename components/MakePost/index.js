@@ -15,7 +15,6 @@ export default withPageAuthRequired(function MakePost() {
   const { user, isLoading } = useUser();
 
   const handleSubmit = (e) => {
-    e.preventDefault();
     const newBlogPost = {
       blog_image: user.picture,
       blog_author: user.name,
