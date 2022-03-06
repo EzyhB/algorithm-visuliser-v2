@@ -8,13 +8,14 @@ import {
   Typography,
   Box,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import { useUser } from "@auth0/nextjs-auth0";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import EditIcon from "@mui/icons-material/Edit";
+import EditingPost from "../EditingPost";
 
 export default function BlogDisplayCards({
   image,
@@ -25,6 +26,7 @@ export default function BlogDisplayCards({
   id,
 }) {
   const { user, isLoading } = useUser();
+  const [isEditing, setIsEditing] = useState(false);
 
   const handleDelete = async () => {
     await fetch(
@@ -34,16 +36,21 @@ export default function BlogDisplayCards({
 
     document.location.reload(true);
   };
-  const handleEdit = () => {
-    console.log("edited");
-  };
 
   if (isLoading) {
     return <div>loading...</div>;
   }
   // const authorised = user_auth === user.sub;
   const authorised = true;
-  return (
+  return isEditing ? (
+    <EditingPost
+      postId={id}
+      setIsEditing={setIsEditing}
+      isEditing={isEditing}
+      title={blogTitle}
+      text={blogText}
+    />
+  ) : (
     <Card sx={{ maxWidth: "25rem" }}>
       <CardHeader
         sx={{ color: "#28293E" }}
@@ -78,7 +85,10 @@ export default function BlogDisplayCards({
               <IconButton title="coming soon" onClick={handleDelete}>
                 <DeleteForeverIcon color="error" />
               </IconButton>
-              <IconButton title="coming soon">
+              <IconButton
+                title="coming soon"
+                onClick={() => setIsEditing(!isEditing)}
+              >
                 <EditIcon color="secondary" />
               </IconButton>
             </Box>
