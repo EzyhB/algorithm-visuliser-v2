@@ -99,9 +99,15 @@ export default function LinearSearchAlgo() {
         }}
       >
         <ButtonGroup variant="contained" color="accent">
-          <Button onClick={handleClickArray}>New Array</Button>
-          <Button onClick={handleClickPick}>Pick Number</Button>
-          <Button onClick={handleClickFind}>Find Number</Button>
+          <Button onClick={handleClickArray} id="NewArrButt">
+            New Array
+          </Button>
+          <Button onClick={handleClickPick} id="PickNumButt">
+            Pick Number
+          </Button>
+          <Button onClick={handleClickFind} id="FindNumButt">
+            Find Number
+          </Button>
         </ButtonGroup>
         <AlgorithmInfoCard
           searchingFor={searchingFor}

@@ -58,6 +58,7 @@ export default function AlgorithmInfoCard({
             subheader={searchingFor ? "Press Find Number" : "Press Pick Number"}
             action={
               <IconButton
+                id="menuDropDown"
                 aria-label="Algorithm Controls"
                 onClick={(e) => {
                   handleOpenAlgoControls(e);
@@ -114,7 +115,12 @@ export default function AlgorithmInfoCard({
               key={`algo-control-${index}`}
               onClick={handleCloseAlgoControls}
             >
-              <Button color="primary" size="small" onClick={el.function}>
+              <Button
+                color="primary"
+                size="small"
+                onClick={el.function}
+                id={index.toString()}
+              >
                 {el.name}
               </Button>
             </MenuItem>

@@ -81,6 +81,7 @@ export default function Allalgorithms() {
                     alt={item.name}
                     height="346px"
                     width="308px"
+                    id={index.toString()}
                     // layout="responsive"
                   />
                   {/* <FilledButton text="pika" /> */}
