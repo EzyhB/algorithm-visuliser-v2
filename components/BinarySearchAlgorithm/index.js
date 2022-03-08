@@ -147,9 +147,15 @@ export default function BinarySearchAlgo() {
         }}
       >
         <ButtonGroup variant="contained" color="accent">
-          <Button onClick={handleClickArray}>New Array</Button>
-          <Button onClick={handleClickPick}>Pick Number</Button>
-          <Button onClick={handleClickFind}>Find Number</Button>
+          <Button onClick={handleClickArray} id="binaryNewArr">
+            New Array
+          </Button>
+          <Button onClick={handleClickPick} id="binaryPickNum">
+            Pick Number
+          </Button>
+          <Button onClick={handleClickFind} id="binaryFindNum">
+            Find Number
+          </Button>
         </ButtonGroup>
         <AlgorithmInfoCard
           searchingFor={searchingFor}
