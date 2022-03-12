@@ -18,7 +18,7 @@ import { useRouter } from "next/router";
 import { useUser } from "@auth0/nextjs-auth0";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
-const pages = ["Home", "Algorithms", "Blog", "Something"];
+const pages = ["Home", "Algorithms", "Blog", "Wave"];
 const settings = ["Profile"];
 
 const Navbar = () => {
@@ -61,7 +61,7 @@ const Navbar = () => {
       case "2":
         return router.push("/blog");
       case "3":
-        return router.push("/something");
+        return router.push("/wave");
     }
   };
   if (isLoading) return <div>Loading...</div>;
