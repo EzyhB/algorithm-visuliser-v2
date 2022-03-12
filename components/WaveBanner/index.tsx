@@ -10,6 +10,7 @@ import ViewInArIcon from "@mui/icons-material/ViewInAr";
 
 import abi from "../../utility/WavePortal.json";
 import { useTheme } from "@mui/material";
+import MiningTimeline from "../MiningTimeline";
 
 declare const window: Window &
   typeof globalThis & {
@@ -19,7 +20,7 @@ declare const window: Window &
 export default function WaveBanner() {
   const [currentAccount, setCurrentAccount] = useState("");
   const [isMining, setIsMining] = useState(false);
-  const [isHaveMined, setisHaveMined] = useState(false);
+  const [isMined, setIsMined] = useState(false);
 
   const theme = useTheme();
 
@@ -91,8 +92,11 @@ export default function WaveBanner() {
 
         await waveTxn.wait();
         console.log("Mined -- ", waveTxn.hash);
-
-        setIsMining(false);
+        setIsMined(true);
+        setTimeout(() => {
+          setIsMined(false);
+          setIsMining(false);
+        }, 3000);
 
         count = await wavePortalContract.getTotalWaves();
         console.log("Retrieved total wave count...", count.toNumber());
@@ -118,6 +122,9 @@ export default function WaveBanner() {
         I&apos;m Ezyh, &#38; I&apos;ve just deployed my 1st Etherium Smart
         Contract onto the BlockChain! Exciting!
       </Typography>
+
+      <MiningTimeline isMining={isMining} isMined={isMined} />
+
       <Box
         position="fixed"
         sx={{
