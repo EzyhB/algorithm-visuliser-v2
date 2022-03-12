@@ -2,6 +2,9 @@ import { Box, Button, Container, Typography } from "@mui/material";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
+import { ethers } from "ethers";
+
+import abi from "../../utility/WavePortal.json";
 
 declare const window: Window &
   typeof globalThis & {
@@ -10,6 +13,9 @@ declare const window: Window &
 
 export default function WaveBanner() {
   const [currentAccount, setCurrentAccount] = useState("");
+
+  const contractAddress = "0xC99181CE0841b5F1DD91f63e47DF4DcA3dAb1e2A";
+  const contractABI = abi.abi;
 
   const walletSecurityCheck = async () => {
     try {
@@ -54,6 +60,37 @@ export default function WaveBanner() {
     }
   };
 
+  const wave = async () => {
+    try {
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        const wavePortalContract = new ethers.Contract(
+          contractAddress,
+          contractABI,
+          signer
+        );
+
+        let count = await wavePortalContract.getTotalWaves();
+        console.log("Retrieved total wave count...", count.toNumber());
+
+        const waveTxn = await wavePortalContract.wave();
+        console.log("Mining...", waveTxn.hash);
+
+        await waveTxn.wait();
+        console.log("Mined -- ", waveTxn.hash);
+
+        count = await wavePortalContract.getTotalWaves();
+        console.log("Retrieved total wave count...", count.toNumber());
+      } else {
+        console.log("Ethereum objext doesn't exist!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     walletSecurityCheck();
   }, []);
@@ -69,9 +106,13 @@ export default function WaveBanner() {
         Contract onto the BlockChain! Exciting!
       </Typography>
 
-      {!currentAccount && (
+      {!currentAccount ? (
         <Button variant="contained" color="secondary" onClick={connectWallet}>
           Connect Wallet
+        </Button>
+      ) : (
+        <Button variant="contained" color="secondary" onClick={wave}>
+          Wave at me
         </Button>
       )}
     </Container>
