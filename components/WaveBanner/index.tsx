@@ -29,7 +29,7 @@ export default function WaveBanner() {
 
   const theme = useTheme();
 
-  const contractAddress = "0x0Eb319DFCC963F866ADdeCcd756f6Ed14326dcE6";
+  const contractAddress = "0x20D7c38996eF424b50C3d42D704A7Ec7A8e1Be6C";
   const contractABI = abi.abi;
 
   const getAllWaves = async () => {
