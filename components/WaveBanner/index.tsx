@@ -124,6 +124,9 @@ export default function WaveBanner() {
     const input = form[0] as HTMLInputElement;
 
     const message = input.value;
+
+    input.value = "";
+
     try {
       const { ethereum } = window;
       if (ethereum) {
