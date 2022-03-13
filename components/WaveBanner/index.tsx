@@ -236,6 +236,7 @@ export default function WaveBanner() {
                   }}
                 >
                   <TextField
+                    required
                     fullWidth
                     multiline
                     rows={4}
@@ -250,6 +251,7 @@ export default function WaveBanner() {
                       margin: "0 auto",
                       bottom: { md: "-2rem", xs: "-1rem" },
                     }}
+                    disabled={isMining ? true : false}
                   >
                     Wave at me
                   </Button>
