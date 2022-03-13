@@ -45,7 +45,7 @@ export default function WaveBanner() {
         );
 
         const waves = await wavePortalContract.getAllWaves();
-        console.log(waves);
+        console.log("Waves", waves);
 
         let cleanWaves = [];
 
@@ -56,6 +56,7 @@ export default function WaveBanner() {
             message: el.message,
           });
         });
+        console.log("clean", cleanWaves);
 
         setAllWaves(cleanWaves);
       }
@@ -141,7 +142,9 @@ export default function WaveBanner() {
         let count = await wavePortalContract.getTotalWaves();
         console.log("Retrieved total wave count...", count.toNumber());
 
-        const waveTxn = await wavePortalContract.wave(message);
+        const waveTxn = await wavePortalContract.wave(message, {
+          gasLimit: 300000,
+        });
         console.log("Mining...", waveTxn.hash);
 
         setIsMining(true);
@@ -261,21 +264,12 @@ export default function WaveBanner() {
           </Grid>
         </Grid>
       </Container>
-      {/* <Box
-        position="fixed"
-        sx={{
-          display: "flex",
-          bottom: "1rem",
-          right: { md: "1rem", xs: 0 },
-          background: theme.palette.primary.light,
-          height: { md: "6rem", xs: "4rem" },
-          width: { md: "14rem", xs: "100%" },
-          borderRadius: "2rem",
-          alignItems: "center",
-        }}
-      > */}
-
-      {/* </Box> */}
+      {allWaves.map((el, index) => (
+        <Box key={index}>
+          <Typography>From: {el.address}</Typography>
+          <Typography>Message: {el.message}</Typography>
+        </Box>
+      ))}
     </Container>
   );
 }
