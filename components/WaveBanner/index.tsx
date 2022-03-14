@@ -29,12 +29,13 @@ export default function WaveBanner() {
 
   const theme = useTheme();
 
-  const contractAddress = "0x0Eb319DFCC963F866ADdeCcd756f6Ed14326dcE6";
+  const contractAddress = "0x20D7c38996eF424b50C3d42D704A7Ec7A8e1Be6C";
   const contractABI = abi.abi;
 
   const getAllWaves = async () => {
     try {
       const { ethereum } = window;
+
       if (ethereum) {
         const provider = new ethers.providers.Web3Provider(ethereum);
         const signer = provider.getSigner();
@@ -45,17 +46,23 @@ export default function WaveBanner() {
         );
 
         const waves = await wavePortalContract.getAllWaves();
-        console.log(waves);
 
-        let cleanWaves = [];
-
-        waves.forEach((el) => {
-          cleanWaves.push({
+        const cleanWaves = waves.map((el) => {
+          return {
             address: el.waver,
             timestamp: new Date(el.timestamp * 1000),
             message: el.message,
-          });
+          };
         });
+        // let cleanWaves = [];
+
+        // waves.forEach((el) => {
+        //   cleanWaves.push({
+        //     address: el.waver,
+        //     timestamp: new Date(el.timestamp * 1000),
+        //     message: el.message,
+        //   });
+        // });
 
         setAllWaves(cleanWaves);
       }
@@ -141,7 +148,9 @@ export default function WaveBanner() {
         let count = await wavePortalContract.getTotalWaves();
         console.log("Retrieved total wave count...", count.toNumber());
 
-        const waveTxn = await wavePortalContract.wave(message);
+        const waveTxn = await wavePortalContract.wave(message, {
+          gasLimit: 300000,
+        });
         console.log("Mining...", waveTxn.hash);
 
         setIsMining(true);
@@ -166,6 +175,39 @@ export default function WaveBanner() {
 
   useEffect(() => {
     walletSecurityCheck();
+
+    let wavePortalContract;
+
+    const onNewWave = (from, timestamp, message) => {
+      console.log("NewWave", from, timestamp, message);
+      const newState = [
+        ...allWaves,
+        {
+          address: from,
+          timestamp: new Date(timestamp * 1000),
+          message: message,
+        },
+      ];
+      setAllWaves(newState);
+    };
+
+    if (window.ethereum) {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+
+      wavePortalContract = new ethers.Contract(
+        contractAddress,
+        contractABI,
+        signer
+      );
+      wavePortalContract.on("NewWave", onNewWave);
+    }
+
+    return () => {
+      if (wavePortalContract) {
+        wavePortalContract.off("NewWave", onNewWave);
+      }
+    };
   }, []);
 
   return (
@@ -261,21 +303,12 @@ export default function WaveBanner() {
           </Grid>
         </Grid>
       </Container>
-      {/* <Box
-        position="fixed"
-        sx={{
-          display: "flex",
-          bottom: "1rem",
-          right: { md: "1rem", xs: 0 },
-          background: theme.palette.primary.light,
-          height: { md: "6rem", xs: "4rem" },
-          width: { md: "14rem", xs: "100%" },
-          borderRadius: "2rem",
-          alignItems: "center",
-        }}
-      > */}
-
-      {/* </Box> */}
+      {allWaves.map((el, index) => (
+        <Box key={index}>
+          <Typography>From: {el.address}</Typography>
+          <Typography>Message: {el.message}</Typography>
+        </Box>
+      ))}
     </Container>
   );
 }
