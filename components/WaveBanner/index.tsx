@@ -15,6 +15,7 @@ import { ethers } from "ethers";
 import abi from "../../utility/WavePortal.json";
 import { useTheme } from "@mui/material";
 import MiningTimeline from "../MiningTimeline";
+import WaveCard from "../WaveCard";
 
 declare const window: Window &
   typeof globalThis & {
@@ -33,9 +34,8 @@ export default function WaveBanner() {
   const contractABI = abi.abi;
 
   const getAllWaves = async () => {
+    const { ethereum } = window;
     try {
-      const { ethereum } = window;
-
       if (ethereum) {
         const provider = new ethers.providers.Web3Provider(ethereum);
         const signer = provider.getSigner();
@@ -54,15 +54,6 @@ export default function WaveBanner() {
             message: el.message,
           };
         });
-        // let cleanWaves = [];
-
-        // waves.forEach((el) => {
-        //   cleanWaves.push({
-        //     address: el.waver,
-        //     timestamp: new Date(el.timestamp * 1000),
-        //     message: el.message,
-        //   });
-        // });
 
         setAllWaves(cleanWaves);
       }
@@ -175,7 +166,6 @@ export default function WaveBanner() {
 
   useEffect(() => {
     walletSecurityCheck();
-
     let wavePortalContract;
 
     const onNewWave = (from, timestamp, message) => {
@@ -303,12 +293,16 @@ export default function WaveBanner() {
           </Grid>
         </Grid>
       </Container>
-      {allWaves.map((el, index) => (
-        <Box key={index}>
-          <Typography>From: {el.address}</Typography>
-          <Typography>Message: {el.message}</Typography>
-        </Box>
-      ))}
+      <Container maxWidth="sm">
+        {allWaves.map((el, index) => (
+          <WaveCard
+            key={index}
+            person={el.address}
+            message={el.message}
+            time={el.timestamp}
+          />
+        ))}
+      </Container>
     </Container>
   );
 }
