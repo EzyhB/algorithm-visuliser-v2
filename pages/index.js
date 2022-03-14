@@ -26,8 +26,6 @@ export default function Home() {
 
   return (
     <Container maxWidth="none" sx={{ minWidth: "xs" }}>
-      <Navbar />
-
       <Box sx={{ m: { md: 9, sm: 6, xs: 5 } }} />
       <Grid container>
         <Grid item md={1}></Grid>

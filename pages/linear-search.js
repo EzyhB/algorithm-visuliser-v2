@@ -9,7 +9,6 @@ import Navbar from "../components/Navbar";
 export default function linearSearch() {
   return (
     <Container maxWidth="none" sx={{ alignContent: "center" }}>
-      <Navbar />
       <Typography
         variant="h1"
         align="center"

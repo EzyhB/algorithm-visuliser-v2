@@ -36,15 +36,16 @@ export default function Allalgorithms() {
     switch (id) {
       case "0":
         return router.push("/linear-search");
-    }
-    switch (id) {
+
       case "1":
         return router.push("/binary-search");
+
+      case "2":
+        return router.push("/merge-sort");
     }
   };
   return (
     <Container maxWidth="none">
-      <Navbar />
       <Container
         sx={{
           maxWidth: { xl: "xl", lg: "lg", md: "md", sm: "sm", xs: "xs" },

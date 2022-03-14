@@ -7,6 +7,7 @@ import { UserProvider } from "@auth0/nextjs-auth0";
 import createEmotionCache from "../utility/createEmotionCache";
 import darkTheme from "../styles/theme/darkTheme";
 import "../styles/globals.css";
+import Navbar from "../components/Navbar";
 
 const clientSideEmotionCache = createEmotionCache();
 
@@ -18,6 +19,7 @@ const MyApp = (props) => {
       <CacheProvider value={emotionCache}>
         <ThemeProvider theme={darkTheme}>
           <CssBaseline />
+          <Navbar />
           <Component {...pageProps} />
         </ThemeProvider>
       </CacheProvider>
