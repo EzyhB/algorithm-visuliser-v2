@@ -35,6 +35,7 @@ export default function WaveBanner() {
   const getAllWaves = async () => {
     try {
       const { ethereum } = window;
+
       if (ethereum) {
         const provider = new ethers.providers.Web3Provider(ethereum);
         const signer = provider.getSigner();
@@ -45,18 +46,23 @@ export default function WaveBanner() {
         );
 
         const waves = await wavePortalContract.getAllWaves();
-        console.log("Waves", waves);
 
-        let cleanWaves = [];
-
-        waves.forEach((el) => {
-          cleanWaves.push({
+        const cleanWaves = waves.map((el) => {
+          return {
             address: el.waver,
             timestamp: new Date(el.timestamp * 1000),
             message: el.message,
-          });
+          };
         });
-        console.log("clean", cleanWaves);
+        // let cleanWaves = [];
+
+        // waves.forEach((el) => {
+        //   cleanWaves.push({
+        //     address: el.waver,
+        //     timestamp: new Date(el.timestamp * 1000),
+        //     message: el.message,
+        //   });
+        // });
 
         setAllWaves(cleanWaves);
       }
@@ -169,6 +175,39 @@ export default function WaveBanner() {
 
   useEffect(() => {
     walletSecurityCheck();
+
+    let wavePortalContract;
+
+    const onNewWave = (from, timestamp, message) => {
+      console.log("NewWave", from, timestamp, message);
+      const newState = [
+        ...allWaves,
+        {
+          address: from,
+          timestamp: new Date(timestamp * 1000),
+          message: message,
+        },
+      ];
+      setAllWaves(newState);
+    };
+
+    if (window.ethereum) {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const signer = provider.getSigner();
+
+      wavePortalContract = new ethers.Contract(
+        contractAddress,
+        contractABI,
+        signer
+      );
+      wavePortalContract.on("NewWave", onNewWave);
+    }
+
+    return () => {
+      if (wavePortalContract) {
+        wavePortalContract.off("NewWave", onNewWave);
+      }
+    };
   }, []);
 
   return (
