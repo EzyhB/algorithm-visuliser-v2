@@ -1,5 +1,7 @@
 import React from "react";
 
+import AlgorithmHeader from "../components/AlgorithmHeader";
+
 export default function mergeSort() {
-  return <div>MergeSort</div>;
+  return <AlgorithmHeader title="Merge Sort" />;
 }
