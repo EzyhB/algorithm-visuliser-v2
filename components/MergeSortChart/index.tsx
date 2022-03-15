@@ -32,10 +32,7 @@ export default function MergeSortChart() {
       newSortArray.push(getRandomInt(10, 540));
     }
 
-    console.log(newSortArray);
-
     setSortArray([...newSortArray]);
-    console.log("asdsad", sortArray);
   };
 
   const handleOpenMenu = (e: SyntheticEvent) => {
