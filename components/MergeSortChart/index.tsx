@@ -94,7 +94,7 @@ export default function MergeSortChart() {
           <Typography color={theme.palette.primary.main}>Sort Array</Typography>
         </MenuItem>
       </Menu>
-      <MergeSortArray sortArray={sortArray} />
+      <MergeSortArray sortArray={sortArray} setSortArray={setSortArray} />
     </Container>
   );
 }

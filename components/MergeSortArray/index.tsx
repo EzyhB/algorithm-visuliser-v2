@@ -3,30 +3,41 @@ import React, { useState } from "react";
 
 interface params {
   sortArray: number[];
+  setSortArray: Function;
 }
 
 type arrays = number[];
 
-export default function MergeSortArray({ sortArray }: params) {
+export default function MergeSortArray({ sortArray, setSortArray }: params) {
   const theme = useTheme();
 
-  let mainArray = [2, 1, 4, 5, 3, 7];
+  let mainArray = sortArray;
   let indexedArray = [0, 1, 2, 3, 4, 5];
   let newArray = [];
 
+  const dontSwap = (index1: number, index2: number) => {
+    return;
+  };
+
   const swapValues = (index1: number, index2: number) => {
     const value1 = mainArray[index1];
-    console.log("index1", index1);
-    console.log("value1", value1);
+    console.log("index1", index1, "value1", value1);
 
     const value2 = mainArray[index2];
+    console.log("index2: ", index2, "value2: ", value2);
+
     newArray = [
-      ...mainArray.slice(0, 0),
-      value1,
-      ...mainArray.slice(index1, index2),
+      ...mainArray.slice(0, index1),
       value2,
-      ...mainArray.slice(index2),
+      ...mainArray.slice(index1 + 1, index2),
+      value1,
+      ...mainArray.slice(index2 + 1),
     ];
+
+    mainArray = newArray;
+    // setTimeout(() => {
+    //   setSortArray(mainArray);
+    // }, 100);
 
     console.log("New Array", newArray);
   };
@@ -43,13 +54,19 @@ export default function MergeSortArray({ sortArray }: params) {
   };
 
   const merge = (left: arrays, right: arrays) => {
+    let r = 0;
+    let l = 0;
     let result = [];
     while (left.length && right.length) {
       if (mainArray[left[0]] <= mainArray[right[0]]) {
-        swapValues(left[0], right[0]);
+        dontSwap(left[0], right[0]);
         result.push(left.shift());
       } else {
-        swapValues(right[0], left[0]);
+        swapValues(left[0], right[0]);
+        l = left[0];
+        r = right[0];
+        left[0] = r;
+        right[0] = l;
         result.push(right.shift());
       }
     }
