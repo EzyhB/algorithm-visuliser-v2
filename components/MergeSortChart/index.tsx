@@ -13,20 +13,20 @@ import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import MergeSortArray from "../MergeSortArray";
 
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
-}
-
 export default function MergeSortChart() {
-  const [sortArray, setSortArray] = useState([]);
   const [anchorElAlgorithms, setAnchorElAlgorithms] = useState(null);
+  const [sortArray, setSortArray] = useState([]);
 
   const theme = useTheme();
 
+  function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
+  }
+
   const generateSortArray = () => {
-    let arrayLength = 300;
+    let arrayLength = 11;
     let newSortArray = [];
     for (let i = 0; i < arrayLength; i++) {
       newSortArray.push(getRandomInt(10, 540));

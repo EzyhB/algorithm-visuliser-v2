@@ -1,3 +1,3 @@
-const indexedArray = [...Array(299).keys()];
+const indexedArray = [...Array(11).keys()];
 
 export default indexedArray;

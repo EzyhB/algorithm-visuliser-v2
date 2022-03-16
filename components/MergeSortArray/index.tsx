@@ -1,5 +1,6 @@
-import { Box, Container, useTheme } from "@mui/material";
-import React, { useState } from "react";
+import { Box, Button, Container, useTheme } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import indexedsm from "../../utility/indexedArray";
 
 interface params {
   sortArray: number[];
@@ -12,7 +13,8 @@ export default function MergeSortArray({ sortArray, setSortArray }: params) {
   const theme = useTheme();
 
   let mainArray = sortArray;
-  let indexedArray = [0, 1, 2, 3, 4, 5];
+  let indexedArray = indexedsm;
+
   let newArray = [];
 
   const dontSwap = (index1: number, index2: number) => {
@@ -21,6 +23,8 @@ export default function MergeSortArray({ sortArray, setSortArray }: params) {
 
   const swapValues = (index1: number, index2: number) => {
     const value1 = mainArray[index1];
+    console.log("MAIN ARRAY", mainArray);
+
     console.log("index1", index1, "value1", value1);
 
     const value2 = mainArray[index2];
@@ -35,11 +39,12 @@ export default function MergeSortArray({ sortArray, setSortArray }: params) {
     ];
 
     mainArray = newArray;
+
     // setTimeout(() => {
     //   setSortArray(mainArray);
     // }, 100);
 
-    console.log("New Array", newArray);
+    console.log("New Array", mainArray);
   };
 
   const mergeSort = (array: arrays) => {
@@ -49,7 +54,6 @@ export default function MergeSortArray({ sortArray, setSortArray }: params) {
     const middle = Math.floor(array.length / 2);
     const leftSide = array.slice(0, middle);
     const rightSide = array.slice(middle, array.length);
-    // console.log("Split: ", leftSide, rightSide);
     return merge(mergeSort(leftSide), mergeSort(rightSide));
   };
 
@@ -57,17 +61,33 @@ export default function MergeSortArray({ sortArray, setSortArray }: params) {
     let r = 0;
     let l = 0;
     let result = [];
+    console.log("left Array: ", left);
+    console.log("right Array: ", right);
+
+    while (left.length && right.length > 1) {
+      if (mainArray[left[0]] <= mainArray[right[0]]) {
+        dontSwap(left[0], right[0]);
+        r = right[0];
+        left.push(r);
+        right.shift();
+        result.push(left.shift());
+      } else {
+        swapValues(left[0], right[0]);
+
+        r = right[0];
+        left.push(r);
+        right.shift();
+        result.push(left.shift());
+      }
+    }
+
     while (left.length && right.length) {
       if (mainArray[left[0]] <= mainArray[right[0]]) {
         dontSwap(left[0], right[0]);
         result.push(left.shift());
       } else {
         swapValues(left[0], right[0]);
-        l = left[0];
-        r = right[0];
-        left[0] = r;
-        right[0] = l;
-        result.push(right.shift());
+        result.push(left.shift());
       }
     }
     while (left.length) {
@@ -76,10 +96,8 @@ export default function MergeSortArray({ sortArray, setSortArray }: params) {
     while (right.length) {
       result.push(right.shift());
     }
-    // console.log("Result: ", result);
     return result;
   };
-  console.log("sorted Array:", mergeSort(indexedArray));
 
   return (
     <Container
@@ -98,6 +116,13 @@ export default function MergeSortArray({ sortArray, setSortArray }: params) {
           }}
         ></Box>
       ))}
+      <Button
+        onClick={() => console.log("sortedArray: ", mergeSort(indexedArray))}
+        variant="contained"
+        color="secondary"
+      >
+        SORT
+      </Button>
     </Container>
   );
 }
