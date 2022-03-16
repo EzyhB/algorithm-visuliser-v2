@@ -13,9 +13,16 @@ import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import MergeSortArray from "../MergeSortArray";
 
+interface arrObj {
+  id: number;
+  value: number;
+}
+
+type objArray = arrObj[];
+
 export default function MergeSortChart() {
   const [anchorElAlgorithms, setAnchorElAlgorithms] = useState(null);
-  const [sortArray, setSortArray] = useState([]);
+  const [sortArray, setSortArray] = useState<objArray>([{ id: 0, value: 1 }]);
 
   const theme = useTheme();
 
@@ -29,10 +36,12 @@ export default function MergeSortChart() {
     let arrayLength = 11;
     let newSortArray = [];
     for (let i = 0; i < arrayLength; i++) {
-      newSortArray.push(getRandomInt(10, 540));
+      newSortArray.push(getRandomInt(2, 15));
     }
-
-    setSortArray([...newSortArray]);
+    let arrayObjects = newSortArray.map((el, index) => {
+      return { id: index, value: el };
+    });
+    setSortArray(arrayObjects);
   };
 
   const handleOpenMenu = (e: SyntheticEvent) => {
