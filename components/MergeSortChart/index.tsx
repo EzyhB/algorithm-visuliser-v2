@@ -33,10 +33,10 @@ export default function MergeSortChart() {
   }
 
   const generateSortArray = () => {
-    let arrayLength = 11;
+    let arrayLength = 300;
     let newSortArray = [];
     for (let i = 0; i < arrayLength; i++) {
-      newSortArray.push(getRandomInt(10, 500));
+      newSortArray.push(getRandomInt(40, 600));
     }
 
     setSortArray(newSortArray);

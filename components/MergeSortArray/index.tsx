@@ -1,6 +1,7 @@
 import { Box, Button, Container, useTheme } from "@mui/material";
 import React, { useState, useEffect } from "react";
-import indexedsm from "../../utility/indexedArray";
+
+import css from "../../styles/MergeSort.module.css";
 
 type arrays = number[];
 
@@ -15,9 +16,13 @@ interface params {
   sortArray: arrays;
   setSortArray: Function;
 }
-let time = 1000;
+let time = 5;
 
 export default function MergeSortArray({ sortArray, setSortArray }: params) {
+  const [swapping, setSwapping] = useState(0);
+  const [swappingWith, setSwappingWith] = useState(0);
+  const [arrayEndLeft, setArrayEndLeft] = useState(0);
+  const [arrayEndRight, setArrayEndRight] = useState(0);
   const theme = useTheme();
 
   let mainArray = sortArray.map((el, index) => {
@@ -26,22 +31,33 @@ export default function MergeSortArray({ sortArray, setSortArray }: params) {
 
   let newArray = [0];
 
-  const dontSwap = (index1: arrObj, index2: arrObj) => {
-    return;
+  const dontSwap = (index1: number, index2: number) => {
+    setTimeout(() => {
+      setSwappingWith(index1);
+      setSwapping(index2);
+    }, time);
+    time += 5;
   };
 
-  const swapValues = (right0: arrObj, oldRight: number) => {
+  const swapValues = (right0: arrObj, oldRight: number, leftEnd, rightEnd) => {
+    let rightID = right0.id;
+    let rightVal = right0.value;
+    let oldIndexOfRight = oldRight;
+    let arrLeftEnd = leftEnd;
+    let arrRightEnd = rightEnd;
+
     setTimeout(() => {
       newArray = sortArray;
-      newArray.splice(oldRight, 1);
+      newArray.splice(oldIndexOfRight, 1);
+      newArray.splice(rightID, 0, rightVal);
 
-      newArray.splice(right0.id, 0, right0.value);
+      setArrayEndLeft(arrLeftEnd);
+      setArrayEndRight(arrRightEnd);
+      setSwapping(oldIndexOfRight + 1);
+      setSwappingWith(rightID);
       setSortArray([...newArray]);
-
-      console.log("has newArray changed?", newArray);
     }, time);
-    time += 1000;
-    console.log("current timer", time);
+    time += 5;
   };
 
   const mergeSort = (array: objArray) => {
@@ -59,9 +75,11 @@ export default function MergeSortArray({ sortArray, setSortArray }: params) {
     let result = [];
     let oldRight = 0;
     let swapRight = { id: 0, value: 0 };
+    let leftArrEnd = left[left.length - 1].id;
+    let rightArrEnd = right[right.length - 1].id;
     while (left.length && right.length) {
       if (left[0].value <= right[0].value) {
-        dontSwap(left[0], right[0]);
+        dontSwap(left[0].id, right[0].id);
         result.push(left.shift());
         // time += 500;
       } else {
@@ -71,7 +89,7 @@ export default function MergeSortArray({ sortArray, setSortArray }: params) {
 
         swapRight = right[0];
 
-        swapValues(swapRight, oldRight);
+        swapValues(swapRight, oldRight, leftArrEnd, rightArrEnd);
 
         left.forEach((el) => {
           el.id += 1;
@@ -98,8 +116,16 @@ export default function MergeSortArray({ sortArray, setSortArray }: params) {
         {sortArray.map((el, index) => (
           <Box
             key={index}
+            className={[
+              css.regular,
+              swapping === index && css.swapping,
+              swappingWith === index && css.swapping,
+              arrayEndLeft === index && css.arrayEnd,
+              arrayEndRight === index && css.arrayEnd,
+            ]
+              .filter((e) => !!e)
+              .join(" ")}
             sx={{
-              bgcolor: theme.palette.secondary.main,
               margin: "0 1px",
               height: `${el}px`,
               width: "3px",
