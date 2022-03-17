@@ -24,33 +24,26 @@ export default function MergeSortArray({ sortArray, setSortArray }: params) {
     return { id: index, value: el };
   });
 
-  let indexedArray = indexedsm;
+  let newArray = [0];
 
   const dontSwap = (index1: arrObj, index2: arrObj) => {
     return;
   };
 
   const swapValues = (right0: arrObj, oldRight: number) => {
-    // setTimeout(
-    //   () => {
-    let newArray = sortArray;
-    newArray.splice(oldRight, 1);
+    setTimeout(() => {
+      newArray = sortArray;
+      newArray.splice(oldRight, 1);
 
-    newArray.splice(right0.id, 0, right0.value);
+      newArray.splice(right0.id, 0, right0.value);
+      setSortArray([...newArray]);
 
-    setSortArray([...newArray]);
-
-    console.log("sortArray", sortArray, "right0", right0, "oldRight", oldRight);
-    //   },
-    //   time,
-    //   right0,
-    //   oldRight,
-    //   sortArray
-    // );
-    // time += 1000;
-    // console.log("current timer", time);
+      console.log("has newArray changed?", newArray);
+    }, time);
+    time += 1000;
+    console.log("current timer", time);
   };
-  // const sleep = (delay) => new Promise((resolve) => setTimeout(resolve, delay));
+
   const mergeSort = (array: objArray) => {
     if (array.length < 2) {
       return array;
@@ -58,53 +51,42 @@ export default function MergeSortArray({ sortArray, setSortArray }: params) {
     const middle = Math.floor(array.length / 2);
     const leftSide = array.slice(0, middle);
     const rightSide = array.slice(middle, array.length);
-    // await sleep(5000);
+
     return merge(mergeSort(leftSide), mergeSort(rightSide));
   };
 
   const merge = (left: objArray, right: objArray) => {
-    setTimeout(
-      () => {
-        let result = [];
-        let oldRight = 0;
-        let swapRight = { id: 0, value: 0 };
-        while (left.length && right.length) {
-          if (left[0].value <= right[0].value) {
-            dontSwap(left[0], right[0]);
-            result.push(left.shift());
-            // time += 500;
-          } else {
-            oldRight = right[0].id;
+    let result = [];
+    let oldRight = 0;
+    let swapRight = { id: 0, value: 0 };
+    while (left.length && right.length) {
+      if (left[0].value <= right[0].value) {
+        dontSwap(left[0], right[0]);
+        result.push(left.shift());
+        // time += 500;
+      } else {
+        oldRight = right[0].id;
 
-            right[0].id = left[0].id;
+        right[0].id = left[0].id;
 
-            swapRight = right[0];
-            // setTimeout(() => {
-            swapValues(swapRight, oldRight);
-            // }, time);
-            // time += 500;
+        swapRight = right[0];
 
-            left.forEach((el) => {
-              el.id += 1;
-            });
+        swapValues(swapRight, oldRight);
 
-            result.push(right.shift());
-          }
-        }
-        while (left.length) {
-          result.push(left.shift());
-        }
-        while (right.length) {
-          result.push(right.shift());
-        }
-        return result;
-      },
-      time,
-      left,
-      right
-    );
+        left.forEach((el) => {
+          el.id += 1;
+        });
 
-    time += 1000;
+        result.push(right.shift());
+      }
+    }
+    while (left.length) {
+      result.push(left.shift());
+    }
+    while (right.length) {
+      result.push(right.shift());
+    }
+    return result;
   };
 
   return (
