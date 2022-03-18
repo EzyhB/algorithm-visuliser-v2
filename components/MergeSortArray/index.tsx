@@ -209,7 +209,9 @@ export default function MergeSortArray({
 
   const handleArrSize = (e: Event) => {
     let input = e.target as HTMLInputElement;
-    generateSortArray(input.value, arrayHeight);
+    if (typeof window !== "undefined") {
+      generateSortArray(input.value, Math.abs(screen.height / 1.7));
+    }
   };
 
   /* It sorts the array by using the merge sort algorithm. */
@@ -232,6 +234,7 @@ export default function MergeSortArray({
                   min={3}
                   max={1000}
                   onChange={handleSpeed}
+                  defaultValue={3}
                 />
                 <Slider
                   color="secondary"
@@ -243,6 +246,7 @@ export default function MergeSortArray({
                   max={200}
                   step={10}
                   onChange={handleArrSize}
+                  defaultValue={200}
                 />
               </Stack>
 
@@ -366,6 +370,7 @@ export default function MergeSortArray({
               min={3}
               max={1000}
               onChange={handleSpeed}
+              defaultValue={3}
             />
             <Typography color={theme.palette.primary.main}>
               Speed(ms)
@@ -383,6 +388,7 @@ export default function MergeSortArray({
               max={200}
               step={10}
               onChange={handleArrSize}
+              defaultValue={200}
             />
             <Typography color={theme.palette.primary.main}>
               Array Size
