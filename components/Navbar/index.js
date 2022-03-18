@@ -114,6 +114,7 @@ const Navbar = () => {
                 <MenuItem
                   key={page}
                   onClick={() => {
+                    handleCloseNavMenu();
                     handleMenuItemClick(index.toString());
                   }}
                 >
