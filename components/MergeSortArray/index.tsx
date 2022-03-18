@@ -143,7 +143,7 @@ export default function MergeSortArray({ sortArray, setSortArray }: params) {
             sx={{
               margin: "0 1px",
               height: `${el}px`,
-              width: "3px",
+              width: "5px",
               alignSelf: "end",
             }}
           ></Box>
