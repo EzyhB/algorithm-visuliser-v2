@@ -28,6 +28,7 @@ interface params {
   arraySize: number;
 }
 let time = 3;
+let initialTime = 3;
 let timeouts = [];
 
 export default function MergeSortArray({
@@ -41,6 +42,7 @@ export default function MergeSortArray({
   const [swappingWith, setSwappingWith] = useState(0);
   const [arrayEndLeft, setArrayEndLeft] = useState(0);
   const [arrayEndRight, setArrayEndRight] = useState(0);
+  // const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const theme = useTheme();
 
   /* It creates an array of objects that contains the index and the value of the array. */
@@ -62,7 +64,7 @@ export default function MergeSortArray({
         setSwapping(index2);
       }, time)
     );
-    time += time;
+    time += initialTime;
   };
 
   /**
@@ -92,7 +94,7 @@ export default function MergeSortArray({
         setSortArray([...newArray]);
       }, time)
     );
-    time += time;
+    time += initialTime;
   };
 
   /**
@@ -156,9 +158,14 @@ export default function MergeSortArray({
    * Clear all the timeouts that are set
    */
   const stopSort = () => {
-    timeouts.forEach((el, index) => {
-      clearTimeout(timeouts[index]);
+    timeouts.forEach((el, i) => {
+      clearTimeout(timeouts[i]);
     });
+
+    if (typeof window !== "undefined") {
+      var id = window.setTimeout(function () {}, 0);
+      console.log("his is the id", id);
+    }
   };
 
   /**
@@ -168,6 +175,12 @@ export default function MergeSortArray({
     timeouts.forEach((el, index) => {
       clearTimeout(timeouts[index]);
     });
+
+    if (typeof window !== "undefined") {
+      var id = window.setTimeout(function () {}, 0);
+      console.log("his is the id", id);
+    }
+
     generateSortArray(arraySize, arrayHeight);
   };
 
@@ -180,13 +193,31 @@ export default function MergeSortArray({
         </Grid>
         <Grid item xs={2}>
           <ButtonGroup orientation="vertical" size="small">
-            <Button onClick={() => mergeSort(mainArray)} color="secondary">
+            <Button
+              onClick={() => {
+                mergeSort(mainArray);
+              }}
+              // disabled={isButtonDisabled ? true : false}
+              color="secondary"
+            >
               SORT
             </Button>
-            <Button onClick={() => resetSort()} color="secondary">
+            <Button
+              onClick={() => {
+                resetSort();
+              }}
+              // disabled={isButtonDisabled ? true : false}
+              color="secondary"
+            >
               Reset
             </Button>
-            <Button onClick={() => stopSort()} color="secondary">
+            <Button
+              onClick={() => {
+                stopSort();
+              }}
+              // disabled={isButtonDisabled ? true : false}
+              color="secondary"
+            >
               Stop
             </Button>
           </ButtonGroup>

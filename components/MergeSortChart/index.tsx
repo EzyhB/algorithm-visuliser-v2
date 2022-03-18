@@ -34,6 +34,9 @@ export default function MergeSortChart() {
   const theme = useTheme();
 
   const generateSortArray = (number: number, height: number) => {
+    if (number > 200) {
+      number = 200;
+    }
     let arrayLength = number;
     let newSortArray = [];
     for (let i = 0; i < arrayLength; i++) {
@@ -53,55 +56,65 @@ export default function MergeSortChart() {
 
   useEffect(() => {
     const reSizeArray = () => {
-      if (screen.width < 1300) {
-        arraySize.current = 180;
-        arrayHeight.current = 560;
-        generateSortArray(arraySize.current, arrayHeight.current);
-      }
-      if (screen.width < 1100) {
-        arraySize.current = 160;
-        arrayHeight.current = 540;
-        generateSortArray(arraySize.current, arrayHeight.current);
-      }
-      if (screen.width < 900) {
-        arraySize.current = 120;
-        arrayHeight.current = 520;
-        generateSortArray(arraySize.current, arrayHeight.current);
-      }
-      if (screen.width < 800) {
-        arraySize.current = 100;
-        arrayHeight.current = 500;
-        generateSortArray(arraySize.current, arrayHeight.current);
-      }
-      if (screen.width < 700) {
-        arraySize.current = 90;
-        arrayHeight.current = 480;
-        generateSortArray(arraySize.current, arrayHeight.current);
-      }
-      if (screen.width < 600) {
-        arraySize.current = 80;
-        arrayHeight.current = 460;
-        generateSortArray(arraySize.current, arrayHeight.current);
-      }
-      if (screen.width < 500) {
-        arraySize.current = 70;
-        arrayHeight.current = 430;
-        generateSortArray(arraySize.current, arrayHeight.current);
-      }
-      if (screen.width < 400) {
-        arraySize.current = 60;
-        arrayHeight.current = 380;
-        generateSortArray(arraySize.current, arrayHeight.current);
-      }
-      if (screen.width < 380) {
-        arraySize.current = 50;
-        arrayHeight.current = 340;
-        generateSortArray(arraySize.current, arrayHeight.current);
-      }
+      // if (screen.width < 1300) {
+      //   arraySize.current = 180;
+      //   arrayHeight.current = 560;
+      //   generateSortArray(arraySize.current, arrayHeight.current);
+      // }
+      // if (screen.width < 1100) {
+      //   arraySize.current = 160;
+      //   arrayHeight.current = 540;
+      //   generateSortArray(arraySize.current, arrayHeight.current);
+      // }
+      // if (screen.width < 900) {
+      //   arraySize.current = 120;
+      //   arrayHeight.current = 520;
+      //   generateSortArray(arraySize.current, arrayHeight.current);
+      // }
+      // if (screen.width < 800) {
+      //   arraySize.current = 100;
+      //   arrayHeight.current = 500;
+      //   generateSortArray(arraySize.current, arrayHeight.current);
+      // }
+      // if (screen.width < 700) {
+      //   arraySize.current = 90;
+      //   arrayHeight.current = 480;
+      //   generateSortArray(arraySize.current, arrayHeight.current);
+      // }
+      // if (screen.width < 600) {
+      //   arraySize.current = 80;
+      //   arrayHeight.current = 460;
+      //   generateSortArray(arraySize.current, arrayHeight.current);
+      // }
+      // if (screen.width < 500) {
+      //   arraySize.current = 70;
+      //   arrayHeight.current = 430;
+      //   generateSortArray(arraySize.current, arrayHeight.current);
+      // }
+      // if (screen.width < 400) {
+      //   arraySize.current = 60;
+      //   arrayHeight.current = 380;
+      //   generateSortArray(arraySize.current, arrayHeight.current);
+      // }
+      // if (screen.width < 380) {
+      //   arraySize.current = 50;
+      //   arrayHeight.current = 340;
+      //   generateSortArray(arraySize.current, arrayHeight.current);
+      // }
+      generateSortArray(
+        Math.abs(screen.width / 7),
+        Math.abs(screen.height / 1.7)
+      );
     };
     window.onresize = reSizeArray;
 
-    generateSortArray(arraySize.current, arrayHeight.current);
+    arraySize.current = Math.abs(screen.width / 7);
+    arrayHeight.current = Math.abs(screen.height / 1.7);
+
+    generateSortArray(
+      Math.abs(screen.width / 7),
+      Math.abs(screen.height / 1.7)
+    );
   }, []);
 
   return (
@@ -137,7 +150,10 @@ export default function MergeSortChart() {
         <MenuItem
           onClick={() => {
             handleCloseMenu();
-            generateSortArray(arraySize.current, arrayHeight.current);
+            generateSortArray(
+              Math.abs(screen.width / 7),
+              Math.abs(screen.height / 1.7)
+            );
           }}
         >
           <Typography color={theme.palette.primary.main}>New Array</Typography>
@@ -145,7 +161,10 @@ export default function MergeSortChart() {
         <MenuItem
           onClick={() => {
             handleCloseMenu();
-            generateSortArray(arraySize.current, arrayHeight.current);
+            generateSortArray(
+              Math.abs(screen.width / 7),
+              Math.abs(screen.height / 1.7)
+            );
           }}
         >
           <Typography color={theme.palette.primary.main}>Sort Array</Typography>
