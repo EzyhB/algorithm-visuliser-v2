@@ -272,7 +272,7 @@ export default function MergeSortArray({
               .join(" ")}
             sx={{
               margin: "0 1px",
-              height: `${el}px`,
+              height: `${el - 10}px`,
               width: "5px",
               alignSelf: "end",
             }}
