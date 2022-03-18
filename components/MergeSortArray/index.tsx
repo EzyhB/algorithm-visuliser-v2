@@ -7,6 +7,8 @@ import {
   IconButton,
   Menu,
   MenuItem,
+  Slider,
+  Stack,
   Typography,
   useTheme,
 } from "@mui/material";
@@ -199,6 +201,19 @@ export default function MergeSortArray({
     setAnchorElAlgorithms(null);
   };
 
+  const handleSpeed = (e: Event) => {
+    let input = e.target as HTMLInputElement;
+
+    initialTime = Number(input.value);
+  };
+
+  const handleArrSize = (e: Event) => {
+    let input = e.target as HTMLInputElement;
+    if (typeof window !== "undefined") {
+      generateSortArray(input.value, Math.abs(screen.height / 1.7));
+    }
+  };
+
   /* It sorts the array by using the merge sort algorithm. */
   return (
     <Container maxWidth={false}>
@@ -208,35 +223,63 @@ export default function MergeSortArray({
         </Grid>
         <Grid item xs={2}>
           <Box sx={{ display: { md: "block", xs: "none" } }}>
-            <ButtonGroup orientation="vertical" size="small">
-              <Button
-                onClick={() => {
-                  mergeSort(mainArray);
-                }}
-                // disabled={isButtonDisabled ? true : false}
-                color="secondary"
-              >
-                SORT
-              </Button>
-              <Button
-                onClick={() => {
-                  resetSort();
-                }}
-                // disabled={isButtonDisabled ? true : false}
-                color="secondary"
-              >
-                Reset
-              </Button>
-              <Button
-                onClick={() => {
-                  stopSort();
-                }}
-                // disabled={isButtonDisabled ? true : false}
-                color="secondary"
-              >
-                Stop
-              </Button>
-            </ButtonGroup>
+            <Box sx={{ display: "flex" }}>
+              <Stack direction="row" spacing={1} sx={{ height: "80px" }}>
+                <Slider
+                  color="secondary"
+                  orientation="vertical"
+                  aria-label="Speed(ms)"
+                  title="Speed(ms)"
+                  valueLabelDisplay="auto"
+                  min={3}
+                  max={1000}
+                  onChange={handleSpeed}
+                  defaultValue={3}
+                />
+                <Slider
+                  color="secondary"
+                  orientation="vertical"
+                  aria-label="Array Size"
+                  title="Array Size"
+                  valueLabelDisplay="auto"
+                  min={20}
+                  max={200}
+                  step={10}
+                  onChange={handleArrSize}
+                  defaultValue={200}
+                />
+              </Stack>
+
+              <ButtonGroup orientation="vertical" size="small">
+                <Button
+                  onClick={() => {
+                    mergeSort(mainArray);
+                  }}
+                  // disabled={isButtonDisabled ? true : false}
+                  color="secondary"
+                >
+                  SORT
+                </Button>
+                <Button
+                  onClick={() => {
+                    resetSort();
+                  }}
+                  // disabled={isButtonDisabled ? true : false}
+                  color="secondary"
+                >
+                  Reset
+                </Button>
+                <Button
+                  onClick={() => {
+                    stopSort();
+                  }}
+                  // disabled={isButtonDisabled ? true : false}
+                  color="secondary"
+                >
+                  Stop
+                </Button>
+              </ButtonGroup>
+            </Box>
           </Box>
           <Box sx={{ display: { md: "none", xs: "block" } }}>
             <IconButton
@@ -316,6 +359,41 @@ export default function MergeSortArray({
           }}
         >
           <Typography color={theme.palette.primary.main}>STOP</Typography>
+        </MenuItem>
+        <MenuItem>
+          <Box sx={{ width: "100px" }}>
+            <Slider
+              color="secondary"
+              aria-label="Speed(ms)"
+              title="Speed(ms)"
+              valueLabelDisplay="auto"
+              min={3}
+              max={1000}
+              onChange={handleSpeed}
+              defaultValue={3}
+            />
+            <Typography color={theme.palette.primary.main}>
+              Speed(ms)
+            </Typography>
+          </Box>
+        </MenuItem>
+        <MenuItem>
+          <Box sx={{ width: "100px" }}>
+            <Slider
+              color="secondary"
+              aria-label="Array Size"
+              title="Array Size"
+              valueLabelDisplay="auto"
+              min={20}
+              max={200}
+              step={10}
+              onChange={handleArrSize}
+              defaultValue={200}
+            />
+            <Typography color={theme.palette.primary.main}>
+              Array Size
+            </Typography>
+          </Box>
         </MenuItem>
       </Menu>
     </Container>
