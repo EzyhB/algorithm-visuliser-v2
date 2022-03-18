@@ -6,7 +6,6 @@ import Navbar from "../../components/Navbar";
 export default function NewPost() {
   return (
     <Container maxWidth="none">
-      <Navbar />
       <MakePost />
     </Container>
   );
