@@ -1,0 +1,9 @@
+.regular {
+  background: linear-gradient(180deg, #ef6d58 0%, #f53f22 100%);
+}
+.arrayEnd {
+  background: linear-gradient(0.06deg, #33ff00 -36.35%, #ffe600 99.97%);
+}
+.swapping {
+  background: linear-gradient(179.68deg, #9b05ff 0%, #ff008a 100%);
+}

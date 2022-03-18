@@ -30,7 +30,6 @@ export default function Blog() {
 
   return (
     <Container maxWidth="none">
-      <Navbar />
       <Container
         sx={{
           maxWidth: { xl: "xl", lg: "lg", md: "md", sm: "sm", xs: "xs" },
