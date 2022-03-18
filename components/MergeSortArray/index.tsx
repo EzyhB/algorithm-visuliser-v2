@@ -245,8 +245,10 @@ export default function MergeSortArray({
               }}
             >
               <WidgetsIcon
-                fontSize="large"
-                sx={{ color: theme.palette.text.primary }}
+                sx={{
+                  color: theme.palette.text.primary,
+                  fontSize: { sm: "2rem", xs: "1.5rem" },
+                }}
               />
             </IconButton>
           </Box>

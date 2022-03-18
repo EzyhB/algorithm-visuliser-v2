@@ -7,19 +7,22 @@ interface params {
 
 export default function AlgorithmHeader({ title }: params) {
   return (
-    <Container maxWidth={false} sx={{ alignContent: "center" }}>
+    <Container
+      maxWidth={false}
+      sx={{ display: "flex", justifyContent: { sm: "center", xs: "start" } }}
+    >
       <Typography
         variant="h1"
-        align="center"
         paragraph
         sx={{
           fontWeight: { xl: 800, lg: 800, md: 700, sm: 600, xs: 500 },
+
           fontSize: {
             xl: "6rem",
             lg: "5rem",
             md: "5rem",
             sm: "4rem",
-            xs: "3rem",
+            xs: "2rem",
           },
         }}
       >
