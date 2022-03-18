@@ -1,7 +1,8 @@
-import { Box, Button, Container, useTheme } from "@mui/material";
+import { Box, Button, Container, Grid, useTheme } from "@mui/material";
 import React, { useState, useEffect } from "react";
 
 import css from "../../styles/MergeSort.module.css";
+import AlgorithmHeader from "../AlgorithmHeader";
 
 type arrays = number[];
 
@@ -16,7 +17,7 @@ interface params {
   sortArray: arrays;
   setSortArray: Function;
 }
-let time = 5;
+let time = 3;
 
 export default function MergeSortArray({ sortArray, setSortArray }: params) {
   const [swapping, setSwapping] = useState(0);
@@ -36,7 +37,7 @@ export default function MergeSortArray({ sortArray, setSortArray }: params) {
       setSwappingWith(index1);
       setSwapping(index2);
     }, time);
-    time += 5;
+    time += 3;
   };
 
   const swapValues = (right0: arrObj, oldRight: number, leftEnd, rightEnd) => {
@@ -57,7 +58,7 @@ export default function MergeSortArray({ sortArray, setSortArray }: params) {
       setSwappingWith(rightID);
       setSortArray([...newArray]);
     }, time);
-    time += 5;
+    time += 3;
   };
 
   const mergeSort = (array: objArray) => {
@@ -109,6 +110,20 @@ export default function MergeSortArray({ sortArray, setSortArray }: params) {
 
   return (
     <Container maxWidth={false}>
+      <Grid container>
+        <Grid item xs={10}>
+          <AlgorithmHeader title="Merge Sort" />
+        </Grid>
+        <Grid item xs={2}>
+          <Button
+            onClick={() => mergeSort(mainArray)}
+            variant="contained"
+            color="secondary"
+          >
+            SORT
+          </Button>
+        </Grid>
+      </Grid>
       <Container
         maxWidth={false}
         sx={{ display: "flex", justifyContent: "center", margin: "2rem 0" }}
@@ -134,13 +149,6 @@ export default function MergeSortArray({ sortArray, setSortArray }: params) {
           ></Box>
         ))}
       </Container>
-      <Button
-        onClick={() => mergeSort(mainArray)}
-        variant="contained"
-        color="secondary"
-      >
-        SORT
-      </Button>
     </Container>
   );
 }

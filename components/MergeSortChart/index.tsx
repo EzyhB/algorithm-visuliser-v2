@@ -33,7 +33,7 @@ export default function MergeSortChart() {
   }
 
   const generateSortArray = () => {
-    let arrayLength = 300;
+    let arrayLength = 250;
     let newSortArray = [];
     for (let i = 0; i < arrayLength; i++) {
       newSortArray.push(getRandomInt(40, 600));
@@ -56,7 +56,7 @@ export default function MergeSortChart() {
 
   return (
     <Container maxWidth={false}>
-      <Container
+      {/* <Container
         maxWidth={false}
         sx={{ display: "flex", justifyContent: "center", margin: "2rem 0" }}
       >
@@ -68,7 +68,7 @@ export default function MergeSortChart() {
           <ExpandCircleDownIcon sx={{ color: theme.palette.primary.dark }} />
           <ArrowLeftIcon sx={{ color: theme.palette.primary.dark }} />
         </IconButton>
-      </Container>
+      </Container> */}
 
       <Menu
         anchorEl={anchorElAlgorithms}
