@@ -95,12 +95,12 @@ export default function MergeSortChart() {
       }
       if (screen.width < 400) {
         arraySize.current = 60;
-        arrayHeight.current = 400;
+        arrayHeight.current = 380;
         generateSortArray(arraySize.current, arrayHeight.current);
       }
       if (screen.width < 380) {
         arraySize.current = 50;
-        arrayHeight.current = 380;
+        arrayHeight.current = 340;
         generateSortArray(arraySize.current, arrayHeight.current);
       }
     };

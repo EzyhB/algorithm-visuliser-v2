@@ -65,7 +65,7 @@ const Navbar = () => {
     }
   };
   if (isLoading) return <div>Loading...</div>;
-  console.log(user);
+
   return (
     <AppBar position="static" color="transparent" sx={{ boxShadow: "none" }}>
       <Container sx={{ maxWidth: { xl: "xl", lg: "lg", md: "md" } }}>
