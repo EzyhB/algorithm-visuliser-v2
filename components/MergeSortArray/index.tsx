@@ -4,9 +4,15 @@ import {
   ButtonGroup,
   Container,
   Grid,
+  IconButton,
+  Menu,
+  MenuItem,
+  Typography,
   useTheme,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { SyntheticEvent, useState } from "react";
+import MenuIcon from "@mui/icons-material/Menu";
+import WidgetsIcon from "@mui/icons-material/Widgets";
 
 import css from "../../styles/MergeSort.module.css";
 import AlgorithmHeader from "../AlgorithmHeader";
@@ -42,6 +48,7 @@ export default function MergeSortArray({
   const [swappingWith, setSwappingWith] = useState(0);
   const [arrayEndLeft, setArrayEndLeft] = useState(0);
   const [arrayEndRight, setArrayEndRight] = useState(0);
+  const [anchorElAlgorithms, setAnchorElAlgorithms] = useState(null);
   // const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const theme = useTheme();
 
@@ -184,6 +191,14 @@ export default function MergeSortArray({
     generateSortArray(arraySize, arrayHeight);
   };
 
+  const handleOpenMenu = (e: SyntheticEvent) => {
+    setAnchorElAlgorithms(e.currentTarget);
+  };
+
+  const handleCloseMenu = () => {
+    setAnchorElAlgorithms(null);
+  };
+
   /* It sorts the array by using the merge sort algorithm. */
   return (
     <Container maxWidth={false}>
@@ -192,35 +207,49 @@ export default function MergeSortArray({
           <AlgorithmHeader title="Merge Sort" />
         </Grid>
         <Grid item xs={2}>
-          <ButtonGroup orientation="vertical" size="small">
-            <Button
-              onClick={() => {
-                mergeSort(mainArray);
+          <Box sx={{ display: { md: "block", xs: "none" } }}>
+            <ButtonGroup orientation="vertical" size="small">
+              <Button
+                onClick={() => {
+                  mergeSort(mainArray);
+                }}
+                // disabled={isButtonDisabled ? true : false}
+                color="secondary"
+              >
+                SORT
+              </Button>
+              <Button
+                onClick={() => {
+                  resetSort();
+                }}
+                // disabled={isButtonDisabled ? true : false}
+                color="secondary"
+              >
+                Reset
+              </Button>
+              <Button
+                onClick={() => {
+                  stopSort();
+                }}
+                // disabled={isButtonDisabled ? true : false}
+                color="secondary"
+              >
+                Stop
+              </Button>
+            </ButtonGroup>
+          </Box>
+          <Box sx={{ display: { md: "none", xs: "block" } }}>
+            <IconButton
+              onClick={(e) => {
+                handleOpenMenu(e);
               }}
-              // disabled={isButtonDisabled ? true : false}
-              color="secondary"
             >
-              SORT
-            </Button>
-            <Button
-              onClick={() => {
-                resetSort();
-              }}
-              // disabled={isButtonDisabled ? true : false}
-              color="secondary"
-            >
-              Reset
-            </Button>
-            <Button
-              onClick={() => {
-                stopSort();
-              }}
-              // disabled={isButtonDisabled ? true : false}
-              color="secondary"
-            >
-              Stop
-            </Button>
-          </ButtonGroup>
+              <WidgetsIcon
+                fontSize="large"
+                sx={{ color: theme.palette.text.primary }}
+              />
+            </IconButton>
+          </Box>
         </Grid>
       </Grid>
       <Container
@@ -248,6 +277,45 @@ export default function MergeSortArray({
           ></Box>
         ))}
       </Container>
+      <Menu
+        anchorEl={anchorElAlgorithms}
+        open={Boolean(anchorElAlgorithms)}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+        keepMounted
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "left",
+        }}
+        onClose={handleCloseMenu}
+      >
+        <MenuItem
+          onClick={() => {
+            handleCloseMenu();
+            mergeSort(mainArray);
+          }}
+        >
+          <Typography color={theme.palette.primary.main}>SORT</Typography>
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            handleCloseMenu();
+            resetSort();
+          }}
+        >
+          <Typography color={theme.palette.primary.main}>RESET</Typography>
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            handleCloseMenu();
+            stopSort();
+          }}
+        >
+          <Typography color={theme.palette.primary.main}>STOP</Typography>
+        </MenuItem>
+      </Menu>
     </Container>
   );
 }
