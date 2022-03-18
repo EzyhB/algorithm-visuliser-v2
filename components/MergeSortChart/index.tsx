@@ -8,9 +8,9 @@ import {
   useTheme,
 } from "@mui/material";
 import React, { SyntheticEvent, useEffect, useRef, useState } from "react";
-import ExpandCircleDownIcon from "@mui/icons-material/ExpandCircleDown";
-import ArrowRightIcon from "@mui/icons-material/ArrowRight";
-import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
+// import ExpandCircleDownIcon from "@mui/icons-material/ExpandCircleDown";
+// import ArrowRightIcon from "@mui/icons-material/ArrowRight";
+// import ArrowLeftIcon from "@mui/icons-material/ArrowLeft";
 import MergeSortArray from "../MergeSortArray";
 
 // interface arrObj {
@@ -19,6 +19,11 @@ import MergeSortArray from "../MergeSortArray";
 // }
 
 // type objArray = arrObj[];
+function getRandomInt(min: number, max: number) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min) + min);
+}
 
 export default function MergeSortChart() {
   const [anchorElAlgorithms, setAnchorElAlgorithms] = useState(null);
@@ -28,17 +33,7 @@ export default function MergeSortChart() {
 
   const theme = useTheme();
 
-  function getRandomInt(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min) + min); //The maximum is exclusive and the minimum is inclusive
-  }
-
-  // if (typeof window !== "undefined") {
-  //   console.log("screen Width", window.screen.width);
-  // }
-
-  const generateSortArray = (number, height) => {
+  const generateSortArray = (number: number, height: number) => {
     let arrayLength = number;
     let newSortArray = [];
     for (let i = 0; i < arrayLength; i++) {
@@ -156,7 +151,13 @@ export default function MergeSortChart() {
           <Typography color={theme.palette.primary.main}>Sort Array</Typography>
         </MenuItem>
       </Menu>
-      <MergeSortArray sortArray={sortArray} setSortArray={setSortArray} />
+      <MergeSortArray
+        sortArray={sortArray}
+        setSortArray={setSortArray}
+        generateSortArray={generateSortArray}
+        arraySize={arraySize.current}
+        arrayHeight={arrayHeight.current}
+      />
     </Container>
   );
 }
