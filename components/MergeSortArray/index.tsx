@@ -13,7 +13,6 @@ import {
   useTheme,
 } from "@mui/material";
 import React, { SyntheticEvent, useState } from "react";
-import MenuIcon from "@mui/icons-material/Menu";
 import WidgetsIcon from "@mui/icons-material/Widgets";
 
 import css from "../../styles/MergeSort.module.css";
@@ -67,13 +66,16 @@ export default function MergeSortArray({
    * @param {number} index2 - The index of the item that is being swapped with the item at index1.
    */
   const dontSwap = (index1: number, index2: number) => {
-    timeouts.push(
-      setTimeout(() => {
-        setSwappingWith(index1);
-        setSwapping(index2);
-      }, time)
-    );
+    let value1 = index1;
+    let value2 = index2;
     time += initialTime;
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        setSwappingWith(value1);
+        setSwapping(value2);
+        resolve("resolved");
+      }, time);
+    });
   };
 
   /**
@@ -89,8 +91,8 @@ export default function MergeSortArray({
     let oldIndexOfRight = oldRight;
     let arrLeftEnd = leftEnd;
     let arrRightEnd = rightEnd;
-
-    timeouts.push(
+    time += initialTime;
+    return new Promise((resolve) => {
       setTimeout(() => {
         newArray = sortArray;
         newArray.splice(oldIndexOfRight, 1);
@@ -101,9 +103,10 @@ export default function MergeSortArray({
         setSwapping(oldIndexOfRight + 1);
         setSwappingWith(rightID);
         setSortArray([...newArray]);
-      }, time)
-    );
-    time += initialTime;
+        resolve("resolved");
+      }, time);
+    });
+    // timeouts.push();
   };
 
   /**
@@ -172,7 +175,7 @@ export default function MergeSortArray({
     });
 
     if (typeof window !== "undefined") {
-      var id = window.setTimeout(function () {}, 0);
+      let id = window.setTimeout(function () {}, 0);
       console.log("his is the id", id);
     }
   };
@@ -186,7 +189,7 @@ export default function MergeSortArray({
     });
 
     if (typeof window !== "undefined") {
-      var id = window.setTimeout(function () {}, 0);
+      let id = window.setTimeout(function () {}, 0);
       console.log("his is the id", id);
     }
 
@@ -231,10 +234,10 @@ export default function MergeSortArray({
                   aria-label="Speed(ms)"
                   title="Speed(ms)"
                   valueLabelDisplay="auto"
-                  min={3}
+                  min={1}
                   max={1000}
                   onChange={handleSpeed}
-                  defaultValue={3}
+                  defaultValue={1}
                 />
                 <Slider
                   color="secondary"
