@@ -201,7 +201,7 @@ export default function WaveBanner() {
   }, []);
 
   return (
-    <Container sx={{ height: "200vh" }}>
+    <Container sx={{ height: "100%" }}>
       <Box sx={{ m: { md: 10, sm: 6, xs: 5 } }} />
       <Typography variant="h2" align="center">
         👋 Hey there!
